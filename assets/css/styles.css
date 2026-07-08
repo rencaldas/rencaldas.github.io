@@ -126,7 +126,7 @@ a {
 }
 
 .nav-menu a:hover {
-  color: var(--ink);
+  color: var(--green);
 }
 
 .nav-cta {
