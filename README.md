@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 Renato Caldas | Portfolio
+# Renato de Azevedo Caldas | Portfolio
 
 ### Portfólio profissional desenvolvido para apresentar minha trajetória, experiência e projetos em desenvolvimento de software, cloud computing, automação e integrações empresariais.
 
