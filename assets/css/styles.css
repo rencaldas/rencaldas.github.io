@@ -104,14 +104,18 @@ a {
 }
 
 .brand-mark {
-  display: inline-grid;
+  display: inline-flex;
   width: 42px;
   height: 42px;
-  place-items: center;
-  border: 1px solid rgba(15, 23, 42, 0.14);
   border-radius: 50%;
-  background: var(--surface);
-  color: var(--teal);
+  overflow: hidden;
+  flex: 0 0 42px;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .nav-menu {
