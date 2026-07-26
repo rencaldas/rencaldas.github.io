@@ -16,6 +16,14 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://rencaldas.github.io/assets/img/profile-github.png" />
     <title>rencaldas | Portfolio</title>
+    <script>
+      try {
+        const savedTheme = localStorage.getItem("rencaldas-theme");
+        document.documentElement.dataset.theme = savedTheme === "light" ? "light" : "dark";
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
     <link rel="shortcut icon" href="assets/img/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +32,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
@@ -35,17 +44,30 @@
           <span class="brand-mark"><img src="assets/img/rencaldas-logo-black.png" alt="" /></span>
           <span>Renato Caldas</span>
         </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" data-nav-toggle>
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div class="nav-actions">
         <div class="nav-menu" id="nav-menu" data-nav-menu>
           <a href="#sobre">Sobre</a>
           <a href="#stack">Stack</a>
           <a href="#projetos">Projetos</a>
           <a href="#experiencia">Experiência</a>
           <a class="nav-cta" href="https://www.linkedin.com/in/rencaldas/" target="_blank" rel="noreferrer">Contato</a>
+          </div>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Alternar para tema claro" aria-pressed="true">
+            <span class="theme-icon theme-icon-sun" aria-hidden="true"></span>
+            <span class="theme-toggle-track" aria-hidden="true">
+              <span class="theme-toggle-thumb"></span>
+            </span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5a8.5 8.5 0 1 0 10.9 10.9Z" />
+              </svg>
+            </span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" data-nav-toggle>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </nav>
     </header>
@@ -54,7 +76,7 @@
       <section class="hero section" id="top">
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="container hero-grid">
-          <div class="hero-copy reveal">
+          <div class="hero-copy" data-aos="fade-up">
             <p class="eyebrow">Rio de Janeiro, RJ, Brasil</p>
             <h1>Renato de Azevedo Caldas</h1>
             <p class="hero-lead">
@@ -72,7 +94,7 @@
             </div>
           </div>
 
-          <aside class="profile-panel reveal" aria-label="Resumo profissional">
+          <aside class="profile-panel" data-aos="fade-up" data-aos-delay="120" aria-label="Resumo profissional">
             <div class="portrait-wrap">
               <img src="assets/img/profile-github.png" alt="Foto de perfil de Renato de Azevedo Caldas" />
             </div>
@@ -97,19 +119,19 @@
 
       <section class="section stats-band" aria-label="Destaques">
         <div class="container stats-grid">
-          <article class="stat reveal">
+          <article class="stat" data-aos="fade-up">
             <strong>50%</strong>
             <span>menos trabalho manual em automações com Excel</span>
           </article>
-          <article class="stat reveal">
+          <article class="stat" data-aos="fade-up" data-aos-delay="80">
             <strong>2027</strong>
             <span>conclusão prevista em Ciência da Computação</span>
           </article>
-          <article class="stat reveal">
+          <article class="stat" data-aos="fade-up" data-aos-delay="160">
             <strong>Cloud</strong>
             <span>AWS, OCI, bancos e ambientes produtivos</span>
           </article>
-          <article class="stat reveal">
+          <article class="stat" data-aos="fade-up" data-aos-delay="240">
             <strong>ERP</strong>
             <span>Sankhya, SAP GUI e integrações operacionais</span>
           </article>
@@ -118,11 +140,11 @@
 
       <section class="section" id="sobre">
         <div class="container split">
-          <div class="section-heading reveal">
+          <div class="section-heading" data-aos="fade-up">
             <p class="eyebrow">Sobre</p>
             <h2>Construo soluções técnicas com olhar de operação.</h2>
           </div>
-          <div class="content-stack reveal">
+          <div class="content-stack" data-aos="fade-up" data-aos-delay="100">
             <p>
               Sou Renato Azevedo Caldas, tenho 21 anos e estudo Ciência da Computação na Universidade Veiga de Almeida.
               Minha rotina combina desenvolvimento de sistemas, suporte técnico, automações, análise de banco de dados e
@@ -144,32 +166,32 @@
 
       <section class="section muted" id="stack">
         <div class="container">
-          <div class="section-heading centered reveal">
+          <div class="section-heading centered" data-aos="fade-up">
             <p class="eyebrow">Stack</p>
             <h2>Ferramentas que uso para sair da ideia e chegar em produção.</h2>
           </div>
           <div class="stack-grid">
-            <article class="stack-card reveal">
+            <article class="stack-card" data-aos="fade-up">
               <h3>Linguagens</h3>
               <p>Python, JavaScript, Go, Node.js, HTML, CSS, SQL</p>
             </article>
-            <article class="stack-card reveal">
+            <article class="stack-card" data-aos="fade-up" data-aos-delay="80">
               <h3>Backend</h3>
               <p>Django, Laravel, REST APIs, webhooks e Postman para integrações e testes de API</p>
             </article>
-            <article class="stack-card reveal">
+            <article class="stack-card" data-aos="fade-up" data-aos-delay="160">
               <h3>Cloud & DevOps</h3>
               <p>AWS, Oracle Cloud, Docker, Git, GitHub</p>
             </article>
-            <article class="stack-card reveal">
+            <article class="stack-card" data-aos="fade-up" data-aos-delay="240">
               <h3>Dados</h3>
               <p>MySQL, PostgreSQL, SQLite, Oracle Database, Power BI</p>
             </article>
-            <article class="stack-card reveal">
+            <article class="stack-card" data-aos="fade-up" data-aos-delay="320">
               <h3>Automação</h3>
               <p>n8n, integrações por API, rotinas operacionais e análise de processos</p>
             </article>
-            <article class="stack-card reveal">
+            <article class="stack-card" data-aos="fade-up" data-aos-delay="400">
               <h3>Enterprise</h3>
               <p>Sankhya ERP, SAP GUI, GLPI, infraestrutura Windows e Linux</p>
             </article>
@@ -179,12 +201,12 @@
 
       <section class="section" id="projetos">
         <div class="container">
-          <div class="section-heading reveal">
+          <div class="section-heading" data-aos="fade-up">
             <p class="eyebrow">Projetos</p>
             <h2>Projetos selecionados</h2>
           </div>
           <div class="project-grid">
-            <article class="project-card featured reveal">
+            <article class="project-card featured" data-aos="fade-up">
               <div>
                 <p class="project-type">TypeScript | AWS SES | Diagnostics</p>
                 <h3>seslock-holmes</h3>
@@ -196,7 +218,7 @@
               </div>
               <a href="https://github.com/rencaldas/seslock-holmes" target="_blank" rel="noreferrer">Ver projeto</a>
             </article>
-            <article class="project-card reveal">
+            <article class="project-card" data-aos="fade-up" data-aos-delay="100">
               <p class="project-type">GitHub Actions | Telegram | APIs</p>
               <h3>projeto-alfredos</h3>
               <p>
@@ -205,7 +227,7 @@
               </p>
               <a href="https://github.com/rencaldas/projeto-alfredos" target="_blank" rel="noreferrer">Ver projeto</a>
             </article>
-            <article class="project-card reveal">
+            <article class="project-card" data-aos="fade-up" data-aos-delay="200">
               <p class="project-type">Go | REST API | Estudos</p>
               <h3>api-rencaldas</h3>
               <p>
@@ -214,13 +236,13 @@
               </p>
               <a href="https://github.com/rencaldas/api-rencaldas" target="_blank" rel="noreferrer">Ver projeto</a>
             </article>
-            <article class="project-card reveal">
+            <article class="project-card" data-aos="fade-up" data-aos-delay="300">
               <p class="project-type">Python | Security | Algorithms</p>
               <h3>projeto_extensao_vi</h3>
               <p>Cifra acadêmica de bloco de 32 bits com rede de substituição-permutação em Python puro.</p>
               <a href="https://github.com/rencaldas/projeto_extensao_vi" target="_blank" rel="noreferrer">Ver projeto</a>
             </article>
-            <article class="project-card reveal">
+            <article class="project-card" data-aos="fade-up" data-aos-delay="400">
               <p class="project-type">Python | Simulation | Performance</p>
               <h3>simulador_filas_estocasticas</h3>
               <p>Simulador de eventos discretos para modelar sistemas de atendimento com processos estocásticos.</p>
@@ -234,12 +256,12 @@
 
       <section class="section muted" id="experiencia">
         <div class="container timeline-layout">
-          <div class="section-heading reveal">
+          <div class="section-heading" data-aos="fade-up">
             <p class="eyebrow">Experiência</p>
             <h2>Histórico profissional</h2>
           </div>
           <div class="timeline">
-            <article class="timeline-item reveal">
+            <article class="timeline-item" data-aos="fade-up">
               <span class="timeline-date">Jun 2026 - atual</span>
               <h3>Analista de Suporte de Sistemas | Ramada Atacadista</h3>
               <p>
@@ -250,7 +272,7 @@
                 (-93%) em um provedor e de 6,8% para 1,8% (-74%) no cenário geral com correções de endereços, MX e DMARC.
               </p>
             </article>
-            <article class="timeline-item reveal">
+            <article class="timeline-item" data-aos="fade-up" data-aos-delay="140">
               <span class="timeline-date">Set 2023 - Ago 2025</span>
               <h3>Auxiliar Administrativo | Multiplan Empreendimentos S.A.</h3>
               <p>
@@ -264,11 +286,11 @@
 
       <section class="section">
         <div class="container split">
-          <div class="section-heading reveal">
+          <div class="section-heading" data-aos="fade-up">
             <p class="eyebrow">Agora</p>
             <h2>Em evolução contínua.</h2>
           </div>
-          <div class="focus-grid reveal">
+          <div class="focus-grid" data-aos="fade-up" data-aos-delay="100">
             <span>AWS Solutions Architect</span>
             <span>Docker e Kubernetes</span>
             <span>Terraform e CI/CD</span>
@@ -280,7 +302,7 @@
       </section>
 
       <section class="section contact-section">
-        <div class="container contact-panel reveal">
+        <div class="container contact-panel" data-aos="fade-up">
           <div>
             <p class="eyebrow">Contato</p>
             <h2>Vamos construir software que simplifica operações.</h2>
@@ -307,6 +329,15 @@
       </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 900,
+        easing: "ease-out",
+        once: true,
+        offset: 90,
+      });
+    </script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>
