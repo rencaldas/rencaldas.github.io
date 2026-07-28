@@ -1,3 +1,15 @@
+@property --hero-wash {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(247, 245, 239, 0.92);
+}
+
+@property --hero-wash-end {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(247, 245, 239, 0.76);
+}
+
 :root {
   --bg: #f7f5ef;
   --surface: #ffffff;
@@ -47,6 +59,38 @@
   box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  transition: background-color 400ms ease, border-color 400ms ease, color 400ms ease,
+    box-shadow 400ms ease, fill 400ms ease, stroke 400ms ease;
+}
+
+/* AOS sets its own higher-specificity transition-property (opacity, transform) on
+   [data-aos] elements, which otherwise wipes out the color fade above. AOS also stamps
+   its global duration/easing onto <body data-aos-duration="900" data-aos-easing="ease-out">,
+   and aos.css's "body[data-aos-duration='900'] [data-aos]" selector outranks a plain
+   [data-aos][data-aos] rule — so the color fade kept inheriting AOS's 900ms ease-out
+   reveal timing instead of the intended 400ms ease, which read as the color transition
+   playing a second time (faster) once AOS's longer timing caught up. Tripling the
+   attribute selector here outranks AOS's body-scoped rules too, so colors keep the
+   same 400ms ease used everywhere else on the page. */
+[data-aos][data-aos][data-aos] {
+  transition-property: opacity, transform, background-color, border-color, color, box-shadow,
+    fill, stroke;
+  transition-duration: 900ms, 900ms, 400ms, 400ms, 400ms, 400ms, 400ms, 400ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1),
+    ease, ease, ease, ease, ease, ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -57,7 +101,7 @@ body {
   color: var(--ink);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
-  transition: background 350ms ease, color 350ms ease;
+  transition: background 400ms ease, color 400ms ease;
 }
 
 body.nav-open {
@@ -133,6 +177,7 @@ a {
   gap: 0.75rem;
   font-weight: 800;
   text-decoration: none;
+  color: var(--ink);
 }
 
 .brand-mark {
@@ -142,6 +187,14 @@ a {
   border-radius: 50%;
   overflow: hidden;
   flex: 0 0 42px;
+}
+
+/* Give the name span its own concrete color (instead of plain inheritance) so its
+   color transition runs its own clean before/after fade in sync with the rest of the
+   page, rather than chasing .brand's still-transitioning inherited value frame by
+   frame (which read as the name's color fading twice, the second time much faster). */
+.brand > span:last-child {
+  color: var(--ink);
 }
 
 .brand-mark img {
@@ -348,6 +401,7 @@ a {
   background:
     linear-gradient(120deg, var(--hero-wash), var(--hero-wash-end)),
     url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=80") center/cover;
+  transition: --hero-wash 400ms ease, --hero-wash-end 400ms ease;
   z-index: -2;
 }
 
