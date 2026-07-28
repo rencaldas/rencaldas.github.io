@@ -67,10 +67,20 @@
 }
 
 /* AOS sets its own higher-specificity transition-property (opacity, transform) on
-   [data-aos] elements, which otherwise wipes out the color fade above. */
-[data-aos][data-aos] {
+   [data-aos] elements, which otherwise wipes out the color fade above. AOS also stamps
+   its global duration/easing onto <body data-aos-duration="900" data-aos-easing="ease-out">,
+   and aos.css's "body[data-aos-duration='900'] [data-aos]" selector outranks a plain
+   [data-aos][data-aos] rule — so the color fade kept inheriting AOS's 900ms ease-out
+   reveal timing instead of the intended 400ms ease, which read as the color transition
+   playing a second time (faster) once AOS's longer timing caught up. Tripling the
+   attribute selector here outranks AOS's body-scoped rules too, so colors keep the
+   same 400ms ease used everywhere else on the page. */
+[data-aos][data-aos][data-aos] {
   transition-property: opacity, transform, background-color, border-color, color, box-shadow,
     fill, stroke;
+  transition-duration: 900ms, 900ms, 400ms, 400ms, 400ms, 400ms, 400ms, 400ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1),
+    ease, ease, ease, ease, ease, ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
