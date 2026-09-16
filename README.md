@@ -2,7 +2,7 @@
 
 # Renato de Azevedo Caldas | Portfolio
 
-### Portfólio profissional desenvolvido para apresentar minha trajetória, experiência e projetos em desenvolvimento de software, cloud computing, automação e integrações empresariais.
+### Portfólio profissional para apresentar minha trajetória, experiência e projetos em desenvolvimento de software, cloud computing, automação e integrações empresariais.
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Online-2EA043?style=for-the-badge&logo=github&logoColor=white)](https://rencaldas.github.io)
 
