@@ -47,19 +47,18 @@ Este portfólio foi criado para:
 
 # ✨ Funcionalidades
 
-- Landing Page moderna
-- Layout totalmente responsivo
-- Design minimalista
-- Navegação suave entre seções
-- Animações de entrada
-- Cards de tecnologias
-- Timeline profissional
-- Projetos em destaque
-- Links para GitHub e LinkedIn
-- SEO básico
-- Open Graph para compartilhamento
-- Performance otimizada
-- Compatível com GitHub Pages
+- Landing page com tema claro/escuro persistente, respeitando a preferência do sistema
+- Layout responsivo de 390px a telas largas
+- Animações de entrada por `IntersectionObserver` (sem dependência externa)
+- Capturas reais dos projetos apresentadas em moldura de navegador
+- Contador de estrelas dos repositórios, atualizado pela API do GitHub com os números do HTML como fallback
+- Estudo de caso dedicado do Seslock Holmes, bilíngue PT/EN
+- Gráfico de resultados acessível: paleta segura para daltonismo, hachura e rótulos numéricos
+- Formulário de contato com validação por campo, antispam (honeypot) e fallback para e-mail
+- Timeline profissional e grid bento de stack
+- Contraste WCAG AA em ambos os temas
+- SEO com dados estruturados (JSON-LD) e Open Graph com imagem própria
+- Zero dependência de runtime: sem framework, sem bundler, sem CDN de JS
 
 ---
 
@@ -100,8 +99,18 @@ Acesse o site:
 │
 ├── assets/
 │   ├── css/
+│   │   ├── styles.css          # design system e páginas
+│   │   └── case-study.css      # estilos do estudo de caso
 │   ├── img/
+│   │   ├── profile.webp        # retrato usado no hero
+│   │   ├── logo.webp           # monograma da marca
+│   │   ├── og-cover.png        # imagem de compartilhamento
+│   │   └── projects/           # capturas reais dos projetos
 │   └── js/
+│       └── script.js
+│
+├── seslock-holmes/
+│   └── index.html              # estudo de caso bilíngue PT/EN
 │
 ├── index.html
 │
@@ -147,14 +156,22 @@ Exemplos:
 
 ## 🚀 Projetos
 
-Alguns projetos apresentados:
+Em destaque, com captura de tela real:
 
-- seslock-holmes
-- projeto-alfredos
-- projeto_extensao_vi
-- simulador_filas_estocasticas
+| Projeto | Stack | Imagem |
+|---|---|---|
+| [seslock-holmes](https://github.com/rencaldas/seslock-holmes) | TypeScript, React, Supabase, AWS SES | Central de ajuda do app no ar |
+| [liac-club](https://github.com/rencaldas/liac-club) | TypeScript, React, Supabase, Deno | Home do site no ar |
+| [projeto-alfredos](https://github.com/rencaldas/projeto-alfredos) | Node.js, GitHub Actions, Telegram, Gemini | Conversa real com o bot no Telegram |
 
-Cada projeto possui um link direto para seu respectivo repositório.
+Demais repositórios listados: `simulador_filas_estocasticas` (com um gráfico gerado pela própria
+simulação), `api-rencaldas`, `projeto_extensao_vi`, `Workspace---Python`, `LabSoftwareA2`,
+`projeto-discover` e este repositório.
+
+> As capturas ficam em `assets/img/projects/`. Para atualizar uma delas, substitua o `.webp`
+> correspondente mantendo o nome e ajuste `width`/`height` da `<img>` no `index.html`. As imagens
+> aparecem na proporção original; a única recortada é a do Telegram, que é vertical e usa a classe
+> `is-cropped`.
 
 ---
 
@@ -234,19 +251,37 @@ Sempre que alterações são enviadas para a branch principal, o site é atualiz
 
 ---
 
+# ⚙️ Configuração do formulário de contato
+
+O formulário usa o [Web3Forms](https://web3forms.com) para entregar as mensagens direto no e-mail,
+sem backend próprio. Enquanto a chave não estiver preenchida, o formulário continua funcionando:
+ele valida os campos e abre o cliente de e-mail do visitante com a mensagem pronta.
+
+Para ativar o envio direto:
+
+1. Pegue uma chave gratuita em https://web3forms.com (basta informar o e-mail de destino).
+2. Em `index.html`, preencha o `value` do campo:
+
+```html
+<input type="hidden" name="access_key" value="SUA_CHAVE_AQUI" data-access-key />
+```
+
+O campo `botcheck` é o honeypot: fica fora da tela, escondido de leitores de tela e da ordem de
+tabulação. Se vier preenchido, o envio é descartado sem chamar a rede.
+
+---
+
 # 📈 Próximas melhorias
 
-- [ ] Blog técnico
-- [ ] Página individual para projetos
-- [ ] Sistema multilíngue (PT/EN)
-- [ ] Integração com GitHub API
-- [ ] Estatísticas automáticas do GitHub
-- [ ] Formulário de contato
-- [ ] Modo claro
-- [ ] Tema customizável
-- [ ] Integração com currículo em PDF
+- [x] Página individual para projetos (estudo de caso do Seslock Holmes)
+- [x] Formulário de contato
+- [x] Modo claro
+- [ ] Sistema multilíngue (PT/EN) no site inteiro — hoje só no estudo de caso
+- [ ] Instância de demonstração do Seslock Holmes com dados de exemplo
+- [ ] Currículo em PDF gerado a partir da folha de impressão do site
+- [ ] Integração com GitHub API e estatísticas automáticas
 - [ ] Certificações
-- [ ] Timeline interativa
+- [ ] Domínio próprio
 
 ---
 
