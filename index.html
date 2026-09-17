@@ -1,343 +1,996 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Renato de Azevedo Caldas | Cloud, Automação e Integrações</title>
     <meta
       name="description"
-      content="Portfólio de Renato de Azevedo Caldas, Analista de Suporte de Sistemas com foco em cloud, automação, backend, bancos de dados e integrações empresariais."
+      content="Analista de Suporte de Sistemas focado em cloud, automação, backend, bancos de dados e integrações empresariais. Portfólio de projetos, experiência e resultados."
     />
-    <meta name="theme-color" content="#0f172a" />
-    <meta property="og:title" content="rencaldas | Portfolio" />
+    <meta name="author" content="Renato de Azevedo Caldas" />
+    <meta name="theme-color" content="#05070d" />
+    <link rel="canonical" href="https://rencaldas.github.io/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rencaldas.github.io/" />
+    <meta property="og:title" content="Renato de Azevedo Caldas | Cloud, Automação e Integrações" />
     <meta
       property="og:description"
-      content="Cloud, automação, backend e sistemas empresariais para operações mais simples, rápidas e inteligentes."
+      content="Sistemas, automações e integrações que reduzem trabalho manual e melhoram operações reais."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://rencaldas.github.io/assets/img/profile-github.png" />
-    <title>rencaldas | Portfolio</title>
+    <meta property="og:image" content="https://rencaldas.github.io/assets/img/og-cover.png" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <script>
-      try {
-        const savedTheme = localStorage.getItem("rencaldas-theme");
-        document.documentElement.dataset.theme = savedTheme === "light" ? "light" : "dark";
-      } catch {
-        document.documentElement.dataset.theme = "dark";
-      }
+      (() => {
+        const root = document.documentElement;
+        root.classList.add("js");
+        try {
+          const saved = localStorage.getItem("rencaldas-theme");
+          root.dataset.theme =
+            saved || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+        } catch {
+          root.dataset.theme = "dark";
+        }
+      })();
     </script>
+
     <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
-    <link rel="shortcut icon" href="assets/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="assets/img/profile.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <link rel="preload" as="image" href="assets/img/profile.webp" />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
+
   <body>
     <a class="skip-link" href="#main">Ir para o conteúdo</a>
 
-    <header class="site-header" data-header>
-      <nav class="nav" aria-label="Navegação principal">
-        <a class="brand" href="#top" aria-label="Renato de Azevedo Caldas">
-          <span class="brand-mark"><img src="assets/img/rencaldas-logo-black.png" alt="" /></span>
-          <span>Renato Caldas</span>
+    <div class="backdrop" aria-hidden="true">
+      <div class="backdrop-aurora">
+        <span class="blob blob-a"></span>
+        <span class="blob blob-b"></span>
+        <span class="blob blob-c"></span>
+      </div>
+      <div class="backdrop-grid"></div>
+      <div class="backdrop-noise"></div>
+    </div>
+
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="i-arrow-ur" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 17 7M8 7h9v9" />
+        </symbol>
+        <symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M5 12l7 7 7-7" />
+        </symbol>
+        <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </symbol>
+        <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.500-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.4 4.7 18.4 5 18.4 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z" />
+        </symbol>
+        <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z" />
+        </symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" />
+          <path d="m3 7 9 6 9-6" />
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" />
+        </symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5a8.5 8.5 0 1 0 10.9 10.9Z" />
+        </symbol>
+        <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
+        </symbol>
+        <symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97A6 6 0 0 0 6.2 10.4 3.8 3.8 0 0 0 6.5 19z" />
+        </symbol>
+        <symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="5.5" rx="7.5" ry="3" />
+          <path d="M4.5 5.5v13c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-13M4.5 12c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3" />
+        </symbol>
+        <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2 4 14h7l-1 8 9-12h-7z" />
+        </symbol>
+        <symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2.5" y="3" width="19" height="7" rx="2" />
+          <rect x="2.5" y="14" width="19" height="7" rx="2" />
+          <path d="M6.5 6.5h.01M6.5 17.5h.01" />
+        </symbol>
+        <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M15 10h3a2 2 0 0 1 2 2v9M2 21h20M8 7h3M8 11h3M8 15h3" />
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.5 4.5 6v6c0 4.5 3.2 8.4 7.5 9.5 4.3-1.1 7.5-5 7.5-9.5V6z" />
+          <path d="m9 12 2 2 4-4" />
+        </symbol>
+        <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="5" />
+          <circle cx="12" cy="12" r="1.4" />
+        </symbol>
+        <symbol id="i-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m12 3 10 5-10 5L2 8z" />
+          <path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5" />
+        </symbol>
+        <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor">
+          <path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <header class="header" data-header>
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Início — Renato de Azevedo Caldas">
+          <span class="brand-mark"><img src="assets/img/logo.webp" alt="" width="40" height="40" /></span>
+          <span class="brand-text">Renato Caldas</span>
         </a>
-        <div class="nav-actions">
-        <div class="nav-menu" id="nav-menu" data-nav-menu>
-          <a href="#sobre">Sobre</a>
-          <a href="#stack">Stack</a>
-          <a href="#projetos">Projetos</a>
-          <a href="#experiencia">Experiência</a>
-          <a class="nav-cta" href="https://www.linkedin.com/in/rencaldas/" target="_blank" rel="noreferrer">Contato</a>
-          </div>
-          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Alternar para tema claro" aria-pressed="true">
-            <span class="theme-icon theme-icon-sun" aria-hidden="true"></span>
-            <span class="theme-toggle-track" aria-hidden="true">
-              <span class="theme-toggle-thumb"></span>
-            </span>
-            <span class="theme-icon theme-icon-moon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5a8.5 8.5 0 1 0 10.9 10.9Z" />
-              </svg>
-            </span>
+
+        <nav class="nav" id="nav-menu" data-nav aria-label="Navegação principal">
+          <a class="nav-link" href="#sobre">Sobre</a>
+          <a class="nav-link" href="#stack">Stack</a>
+          <a class="nav-link" href="#projetos">Projetos</a>
+          <a class="nav-link" href="#experiencia">Experiência</a>
+          <a class="nav-link" href="#contato">Contato</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Alternar tema">
+            <svg class="icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+            <svg class="icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
           </button>
-          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" data-nav-toggle>
-            <span></span>
-            <span></span>
-            <span></span>
+          <a class="btn btn-primary btn-sm" href="#contato">Fale comigo</a>
+          <button
+            class="nav-toggle"
+            type="button"
+            data-nav-toggle
+            aria-expanded="false"
+            aria-controls="nav-menu"
+            aria-label="Abrir menu"
+          >
+            <span></span><span></span><span></span>
           </button>
         </div>
-      </nav>
+      </div>
+      <div class="scroll-progress" data-progress></div>
     </header>
 
     <main id="main">
-      <section class="hero section" id="top">
-        <div class="hero-bg" aria-hidden="true"></div>
-        <div class="container hero-grid">
-          <div class="hero-copy" data-aos="fade-up">
-            <p class="eyebrow">Rio de Janeiro, RJ, Brasil</p>
-            <h1>Renato de Azevedo Caldas</h1>
-            <p class="hero-lead">
-              Analista de Suporte de Sistemas, focado em cloud, automação, backend, bancos de dados e integrações que
-              melhoram operações reais.
+      <!-- Hero -->
+      <section class="hero" id="top">
+        <div class="shell hero-inner">
+          <div class="hero-copy">
+            <p class="status-pill" data-reveal>
+              <span class="status-dot" aria-hidden="true"></span>
+              Rio de Janeiro, RJ · Aberto a novas oportunidades
             </p>
-            <div class="hero-actions" aria-label="Links principais">
-              <a class="button primary" href="https://www.linkedin.com/in/rencaldas/" target="_blank" rel="noreferrer">
+
+            <h1 class="hero-title gradient-flow" data-reveal style="--delay: 60ms">
+              <span>Renato de</span>
+              <span>Azevedo Caldas</span>
+            </h1>
+
+            <p class="hero-role" data-reveal style="--delay: 120ms">
+              Analista de Suporte de Sistemas
+              <span class="dot" aria-hidden="true"></span>
+              Cloud &amp; Automação
+            </p>
+
+            <p class="hero-lead" data-reveal style="--delay: 180ms">
+              Trabalho onde o software encosta na operação: integrações com ERP, rotinas que eliminam trabalho manual,
+              bancos de dados em produção e diagnósticos que viram número — como uma taxa de bounce de 11,6% para 0,8%.
+            </p>
+
+            <div class="hero-actions" data-reveal style="--delay: 240ms">
+              <a class="btn btn-primary" href="#projetos">
+                Ver projetos
+                <svg aria-hidden="true"><use href="#i-arrow-down" /></svg>
+              </a>
+              <a class="btn btn-ghost" href="https://www.linkedin.com/in/rencaldas/" target="_blank" rel="noreferrer">
+                <svg aria-hidden="true"><use href="#i-linkedin" /></svg>
                 LinkedIn
               </a>
-              <a class="button secondary" href="https://github.com/rencaldas" target="_blank" rel="noreferrer">
+              <a class="btn btn-ghost" href="https://github.com/rencaldas" target="_blank" rel="noreferrer">
+                <svg aria-hidden="true"><use href="#i-github" /></svg>
                 GitHub
               </a>
-              <a class="button secondary" href="mailto:renato.deacaldas@gmail.com">E-mail</a>
             </div>
-          </div>
 
-          <aside class="profile-panel" data-aos="fade-up" data-aos-delay="120" aria-label="Resumo profissional">
-            <div class="portrait-wrap">
-              <img src="assets/img/profile-github.png" alt="Foto de perfil de Renato de Azevedo Caldas" />
-            </div>
-            <div>
-              <p class="panel-label">Atual</p>
-              <h2>Analista de Suporte de Sistemas</h2>
-              <p>Ramada Atacadista</p>
-            </div>
-            <dl class="quick-facts">
+            <dl class="hero-meta" data-reveal style="--delay: 300ms">
+              <div>
+                <dt>Atualmente</dt>
+                <dd>Ramada Atacadista</dd>
+              </div>
               <div>
                 <dt>Formação</dt>
-                <dd>Ciência da Computação, 2027</dd>
+                <dd>Ciência da Computação · 2027</dd>
               </div>
               <div>
                 <dt>Foco</dt>
-                <dd>Cloud, automação, integração e plataforma</dd>
+                <dd>Cloud, dados e integrações</dd>
               </div>
             </dl>
-          </aside>
+          </div>
+
+          <div class="hero-portrait" data-reveal style="--delay: 160ms">
+            <span class="portrait-glow" aria-hidden="true"></span>
+            <div class="portrait-frame">
+              <img
+                src="assets/img/profile.webp"
+                alt="Retrato de Renato de Azevedo Caldas"
+                width="720"
+                height="900"
+                fetchpriority="high"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="shell">
+          <p class="scroll-cue" aria-hidden="true">
+            <svg><use href="#i-arrow-down" /></svg>
+            Role para explorar
+          </p>
         </div>
       </section>
 
-      <section class="section stats-band" aria-label="Destaques">
-        <div class="container stats-grid">
-          <article class="stat" data-aos="fade-up">
-            <strong>50%</strong>
-            <span>menos trabalho manual em automações com Excel</span>
+      <!-- Marquee -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track" data-marquee>
+          <span>Python</span><span>TypeScript</span><span>Go</span><span>Node.js</span><span>SQL</span>
+          <span>PostgreSQL</span><span>Oracle Database</span><span>AWS</span><span>Oracle Cloud</span>
+          <span>Docker</span><span>Supabase</span><span>n8n</span><span>Sankhya ERP</span><span>SAP GUI</span>
+          <span>GitHub Actions</span><span>Power BI</span><span>REST APIs</span><span>Django</span>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <section class="section" aria-labelledby="resultados-title" style="padding-block: clamp(3rem, 6vw, 4.5rem)">
+        <h2 id="resultados-title" class="sr-only">Resultados em números</h2>
+        <div class="shell stats-grid">
+          <article class="stat panel panel-lit" data-reveal>
+            <strong data-count="93" data-prefix="-" data-suffix="%">-93%</strong>
+            <span>na taxa de bounce de um provedor com o Seslock Holmes (11,6% → 0,8%)</span>
           </article>
-          <article class="stat" data-aos="fade-up" data-aos-delay="80">
+          <article class="stat panel panel-lit" data-reveal style="--delay: 80ms">
+            <strong data-count="50" data-suffix="%">50%</strong>
+            <span>menos trabalho manual em rotinas administrativas automatizadas</span>
+          </article>
+          <article class="stat panel panel-lit" data-reveal style="--delay: 160ms">
+            <strong data-count="4" data-suffix=" bots">4 bots</strong>
+            <span>rodando sem servidor próprio via GitHub Actions no Projeto Alfredos</span>
+          </article>
+          <article class="stat panel panel-lit" data-reveal style="--delay: 240ms">
             <strong>2027</strong>
-            <span>conclusão prevista em Ciência da Computação</span>
-          </article>
-          <article class="stat" data-aos="fade-up" data-aos-delay="160">
-            <strong>Cloud</strong>
-            <span>AWS, OCI, bancos e ambientes produtivos</span>
-          </article>
-          <article class="stat" data-aos="fade-up" data-aos-delay="240">
-            <strong>ERP</strong>
-            <span>Sankhya, SAP GUI e integrações operacionais</span>
+            <span>conclusão prevista em Ciência da Computação (UVA)</span>
           </article>
         </div>
       </section>
 
+      <!-- Sobre -->
       <section class="section" id="sobre">
-        <div class="container split">
-          <div class="section-heading" data-aos="fade-up">
+        <div class="shell split">
+          <div class="section-head" data-reveal style="margin-bottom: 0">
             <p class="eyebrow">Sobre</p>
-            <h2>Construo soluções técnicas com olhar de operação.</h2>
+            <h2>Software com olhar de quem sustenta a operação.</h2>
           </div>
-          <div class="content-stack" data-aos="fade-up" data-aos-delay="100">
-            <p>
-              Sou Renato Azevedo Caldas, tenho 21 anos e estudo Ciência da Computação na Universidade Veiga de Almeida.
-              Minha rotina combina desenvolvimento de sistemas, suporte técnico, automações, análise de banco de dados e
-              melhoria contínua de processos internos.
-            </p>
-            <p>
-              Gosto de transformar requisitos de negócio em entregas confiáveis: APIs, workflows, dashboards, integrações
-              com ERP e rotinas que reduzem atrito para equipes que dependem de tecnologia todos os dias.
-            </p>
-            <p>
-              Como Analista de Suporte de Sistemas na Ramada, atuo em ambientes produtivos que conectam sistemas
-              corporativos, dados e infraestrutura de TI. Direciono meu desenvolvimento profissional para cloud computing,
-              bancos de dados, integrações de sistemas e automação de processos, com interesse em oportunidades nas áreas de
-              suporte de sistemas, análise de dados e cloud.
-            </p>
+
+          <div>
+            <div class="prose" data-reveal style="--delay: 80ms">
+              <p>
+                Tenho 21 anos, sou do Rio de Janeiro e estudo <strong>Ciência da Computação</strong> na Universidade
+                Veiga de Almeida. Minha rotina mistura desenvolvimento, suporte técnico, automações, análise de banco de
+                dados e melhoria contínua de processos internos.
+              </p>
+              <p>
+                Como <strong>Analista de Suporte de Sistemas na Ramada Atacadista</strong>, atuo em ambientes produtivos
+                que conectam sistemas corporativos, dados e infraestrutura. Diagnostico bancos Oracle e AWS, testo e
+                faço merge de pull requests, construo workflows no n8n e ajusto o ERP Sankhya quando o processo pede.
+              </p>
+              <p>
+                Gosto de transformar requisito de negócio em entrega confiável: APIs, workflows, dashboards e rotinas
+                que reduzem atrito para quem depende de tecnologia todos os dias. Direciono meu desenvolvimento para
+                <strong>cloud, bancos de dados, integrações e automação</strong>.
+              </p>
+            </div>
+
+            <div class="about-aside">
+              <article class="about-card panel panel-lit" data-reveal style="--delay: 140ms">
+                <svg aria-hidden="true"><use href="#i-server" /></svg>
+                <h3>Produção de verdade</h3>
+                <p>Ambientes ativos, ERP, bancos corporativos e integrações que não podem cair.</p>
+              </article>
+              <article class="about-card panel panel-lit" data-reveal style="--delay: 200ms">
+                <svg aria-hidden="true"><use href="#i-zap" /></svg>
+                <h3>Automação primeiro</h3>
+                <p>Se a tarefa se repete, ela vira workflow, script agendado ou integração por API.</p>
+              </article>
+              <article class="about-card panel panel-lit" data-reveal style="--delay: 260ms">
+                <svg aria-hidden="true"><use href="#i-target" /></svg>
+                <h3>Resultado mensurável</h3>
+                <p>Entrega boa é a que aparece no indicador — bounce, tempo de rotina, chamado resolvido.</p>
+              </article>
+              <article class="about-card panel panel-lit" data-reveal style="--delay: 320ms">
+                <svg aria-hidden="true"><use href="#i-graduation" /></svg>
+                <h3>Aprendizado contínuo</h3>
+                <p>Estudo cloud, containers e arquitetura enquanto aplico no trabalho e em projetos próprios.</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section muted" id="stack">
-        <div class="container">
-          <div class="section-heading centered" data-aos="fade-up">
+      <!-- Stack -->
+      <section class="section" id="stack">
+        <div class="shell">
+          <div class="section-head is-centered" data-reveal>
             <p class="eyebrow">Stack</p>
-            <h2>Ferramentas que uso para sair da ideia e chegar em produção.</h2>
+            <h2>Da ideia até rodando em produção.</h2>
+            <p class="lead" style="margin-inline: auto; margin-top: 1rem">
+              As ferramentas que uso no dia a dia, agrupadas pelo problema que resolvem.
+            </p>
           </div>
-          <div class="stack-grid">
-            <article class="stack-card" data-aos="fade-up">
-              <h3>Linguagens</h3>
-              <p>Python, JavaScript, Go, Node.js, HTML, CSS, SQL</p>
-            </article>
-            <article class="stack-card" data-aos="fade-up" data-aos-delay="80">
-              <h3>Backend</h3>
-              <p>Django, Laravel, REST APIs, webhooks e Postman para integrações e testes de API</p>
-            </article>
-            <article class="stack-card" data-aos="fade-up" data-aos-delay="160">
-              <h3>Cloud & DevOps</h3>
-              <p>AWS, Oracle Cloud, Docker, Git, GitHub</p>
-            </article>
-            <article class="stack-card" data-aos="fade-up" data-aos-delay="240">
-              <h3>Dados</h3>
-              <p>MySQL, PostgreSQL, SQLite, Oracle Database, Power BI</p>
-            </article>
-            <article class="stack-card" data-aos="fade-up" data-aos-delay="320">
-              <h3>Automação</h3>
-              <p>n8n, integrações por API, rotinas operacionais e análise de processos</p>
-            </article>
-            <article class="stack-card" data-aos="fade-up" data-aos-delay="400">
-              <h3>Enterprise</h3>
-              <p>Sankhya ERP, SAP GUI, GLPI, infraestrutura Windows e Linux</p>
-            </article>
-          </div>
-        </div>
-      </section>
 
-      <section class="section" id="projetos">
-        <div class="container">
-          <div class="section-heading" data-aos="fade-up">
-            <p class="eyebrow">Projetos</p>
-            <h2>Projetos selecionados</h2>
-          </div>
-          <div class="project-grid">
-            <article class="project-card featured" data-aos="fade-up">
+          <div class="bento">
+            <article class="bento-card is-wide panel panel-lit" data-reveal>
+              <span class="bento-icon"><svg aria-hidden="true"><use href="#i-code" /></svg></span>
+              <h3>Linguagens</h3>
+              <div class="tag-row">
+                <span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span>
+                <span class="tag">Go</span><span class="tag">SQL</span><span class="tag">HTML</span
+                ><span class="tag">CSS</span>
+              </div>
+            </article>
+
+            <article class="bento-card is-wide panel panel-lit" data-reveal style="--delay: 80ms">
+              <span class="bento-icon"><svg aria-hidden="true"><use href="#i-cloud" /></svg></span>
+              <h3>Cloud &amp; DevOps</h3>
+              <div class="tag-row">
+                <span class="tag">AWS</span><span class="tag">Oracle Cloud</span><span class="tag">Docker</span>
+                <span class="tag">GitHub Actions</span><span class="tag">Vercel</span><span class="tag">Git</span>
+              </div>
+            </article>
+
+            <article class="bento-card panel panel-lit" data-reveal style="--delay: 140ms">
+              <span class="bento-icon"><svg aria-hidden="true"><use href="#i-server" /></svg></span>
+              <h3>Backend &amp; APIs</h3>
+              <div class="tag-row">
+                <span class="tag">Node.js</span><span class="tag">Django</span><span class="tag">REST</span>
+                <span class="tag">Webhooks</span><span class="tag">Postman</span>
+              </div>
+            </article>
+
+            <article class="bento-card panel panel-lit" data-reveal style="--delay: 200ms">
+              <span class="bento-icon"><svg aria-hidden="true"><use href="#i-database" /></svg></span>
+              <h3>Dados</h3>
+              <div class="tag-row">
+                <span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">Supabase</span>
+                <span class="tag">Power BI</span>
+              </div>
+            </article>
+
+            <article class="bento-card panel panel-lit" data-reveal style="--delay: 260ms">
+              <span class="bento-icon"><svg aria-hidden="true"><use href="#i-zap" /></svg></span>
+              <h3>Automação</h3>
+              <div class="tag-row">
+                <span class="tag">n8n</span><span class="tag">Integrações por API</span>
+                <span class="tag">GitHub Actions</span>
+              </div>
+            </article>
+
+            <article class="bento-card is-full panel panel-lit" data-reveal style="--delay: 320ms">
+              <span class="bento-icon"><svg aria-hidden="true"><use href="#i-building" /></svg></span>
               <div>
-                <p class="project-type">TypeScript | AWS SES | Diagnostics</p>
-                <h3>seslock-holmes</h3>
-                <p>
-                  Dashboard para investigação de eventos do Amazon SES, centralizando logs, entregas, bounces, complaints e
-                  métricas. A solução reduziu a taxa de bounce de 11,6% para 0,8% (-93%) em um provedor e de 6,8% para
-                  1,8% (-74%) no cenário geral, com correções de endereços, MX e DMARC.
+                <h3>Ambiente corporativo</h3>
+                <p style="color: var(--text-dim); font-size: 0.88rem; margin-top: 0.2rem">
+                  Onde a tecnologia encontra o processo da empresa.
                 </p>
               </div>
-              <a href="https://github.com/rencaldas/seslock-holmes" target="_blank" rel="noreferrer">Ver projeto</a>
+              <div class="tag-row">
+                <span class="tag">Sankhya ERP</span><span class="tag">SAP GUI</span><span class="tag">GLPI</span>
+                <span class="tag">Windows Server</span><span class="tag">Linux</span><span class="tag">Scrum</span>
+              </div>
             </article>
-            <article class="project-card" data-aos="fade-up" data-aos-delay="100">
-              <p class="project-type">GitHub Actions | Telegram | APIs</p>
-              <h3>projeto-alfredos</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projetos -->
+      <section class="section" id="projetos">
+        <div class="shell">
+          <div class="section-head" data-reveal>
+            <p class="eyebrow">Projetos</p>
+            <h2>O que eu construí e o que mudou depois.</h2>
+          </div>
+
+          <div class="project-showcase">
+            <!-- Seslock Holmes -->
+            <article class="project-hero panel panel-lit" data-reveal>
+              <div class="project-hero-copy">
+                <div class="flag-row">
+                  <span class="project-flag">Projeto em destaque</span>
+                  <span class="project-flag">No ar</span>
+                  <span class="stars" data-stars="seslock-holmes">
+                    <svg aria-hidden="true"><use href="#i-star" /></svg>
+                    <b>7</b>
+                    <span class="sr-only">estrelas no GitHub</span>
+                  </span>
+                </div>
+                <h3>Seslock Holmes</h3>
+                <p class="mono">TypeScript · React · Supabase · AWS SES · Vercel</p>
+                <p>
+                  Dashboard de investigação de e-mails do AWS SES. Centraliza eventos, entregas, bounces e complaints,
+                  rastreia cada mensagem, gera relatórios agendados por e-mail e permite compartilhar visões públicas
+                  somente-leitura com token. Cada bounce diagnosticado virou correção concreta de endereço, MX ou DMARC.
+                </p>
+                <div class="result-row">
+                  <div class="result-chip">
+                    <b>11,6% → 0,8%</b>
+                    <span>bounce · 1 provedor</span>
+                  </div>
+                  <div class="result-chip">
+                    <b>6,8% → 1,8%</b>
+                    <span>bounce · geral</span>
+                  </div>
+                  <div class="result-chip">
+                    <b>RLS + RBAC</b>
+                    <span>viewer / manager</span>
+                  </div>
+                </div>
+                <div class="project-actions">
+                  <a class="btn btn-primary btn-sm" href="seslock-holmes/">
+                    Ler o estudo de caso
+                    <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+                  </a>
+                  <a
+                    class="btn btn-ghost btn-sm"
+                    href="https://seslock-holmes.vercel.app"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Abrir o site
+                    <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+                  </a>
+                  <a
+                    class="btn btn-ghost btn-sm"
+                    href="https://github.com/rencaldas/seslock-holmes"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <svg aria-hidden="true"><use href="#i-github" /></svg>
+                    Código
+                  </a>
+                </div>
+              </div>
+
+              <figure class="browser">
+                <div class="browser-bar" aria-hidden="true">
+                  <div class="browser-dots"><i></i><i></i><i></i></div>
+                  <div class="browser-url">seslock-holmes.vercel.app</div>
+                </div>
+                <img
+                  class="browser-shot"
+                  src="assets/img/projects/seslock.webp"
+                  alt="Visão geral do Seslock Holmes: reputação do domínio em 95,5% de taxa de entrega, 2,7% de bounce, e cartões com 39.369 e-mails entregues, 2.350 bounces e 3 reclamações."
+                  width="1400"
+                  height="669"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            </article>
+
+            <!-- LIAC Club -->
+            <article class="project-hero is-reversed panel panel-lit" data-reveal>
+              <div class="project-hero-copy">
+                <div class="flag-row">
+                  <span class="project-flag">No ar</span>
+                  <span class="stars" data-stars="liac-club">
+                    <svg aria-hidden="true"><use href="#i-star" /></svg>
+                    <b>1</b>
+                    <span class="sr-only">estrelas no GitHub</span>
+                  </span>
+                </div>
+                <h3>LIAC Club</h3>
+                <p class="mono">TypeScript · React · Supabase · Deno · Vercel</p>
+                <p>
+                  Hub de portfólio digital da LIAC, a Liga Acadêmica de Cosmetologia da UFRJ. A liga publica novidades,
+                  eventos e artigos científicos, e apresenta equipe, projetos e parceiros. O backend é meu também: Edge
+                  Functions em Deno sobre Supabase, com autenticação da equipe, CRUD dos conteúdos, convites por cargo e
+                  log de auditoria.
+                </p>
+                <div class="result-row">
+                  <div class="result-chip"><b>Portal próprio</b><span>equipe publica sem dev</span></div>
+                  <div class="result-chip"><b>Deno + Supabase</b><span>edge functions</span></div>
+                  <div class="result-chip"><b>Convites</b><span>por cargo, com auditoria</span></div>
+                </div>
+                <div class="project-actions">
+                  <a class="btn btn-primary btn-sm" href="https://liac-club.vercel.app" target="_blank" rel="noreferrer">
+                    Abrir o site
+                    <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+                  </a>
+                  <a
+                    class="btn btn-ghost btn-sm"
+                    href="https://github.com/rencaldas/liac-club"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <svg aria-hidden="true"><use href="#i-github" /></svg>
+                    Código
+                  </a>
+                </div>
+              </div>
+
+              <figure class="browser">
+                <div class="browser-bar" aria-hidden="true">
+                  <div class="browser-dots"><i></i><i></i><i></i></div>
+                  <div class="browser-url">liac-club.vercel.app</div>
+                </div>
+                <img
+                  class="browser-shot"
+                  src="assets/img/projects/liac.webp"
+                  alt="Página inicial do LIAC Club, com o título Divulgação científica em cosmetologia, feita pela UFRJ."
+                  width="1200"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            </article>
+
+            <!-- Projeto Alfredos -->
+            <article class="project-hero panel panel-lit" data-reveal>
+              <div class="project-hero-copy">
+                <div class="flag-row">
+                  <span class="project-flag">Automação sem servidor</span>
+                  <span class="stars" data-stars="projeto-alfredos">
+                    <svg aria-hidden="true"><use href="#i-star" /></svg>
+                    <b>1</b>
+                    <span class="sr-only">estrelas no GitHub</span>
+                  </span>
+                </div>
+                <h3>Projeto Alfredos</h3>
+                <p class="mono">Node.js · GitHub Actions · Telegram · Gemini</p>
+                <p>
+                  Quatro bots que nasceram em n8n self-hosted com Docker e foram migrados para GitHub Actions, sem
+                  máquina ligada 24/7. Enviam notícias de tecnologia, jogos grátis da Epic, alertas de vulnerabilidade
+                  nas dependências dos meus repositórios e, às 23:59, um relatório executivo do dia gerado por LLM.
+                </p>
+                <div class="result-row">
+                  <div class="result-chip"><b>15 min</b><span>ciclo do jornalista</span></div>
+                  <div class="result-chip"><b>R$ 0</b><span>custo de infraestrutura</span></div>
+                  <div class="result-chip"><b>4 workflows</b><span>em produção</span></div>
+                </div>
+                <div class="project-actions">
+                  <a
+                    class="btn btn-ghost btn-sm"
+                    href="https://github.com/rencaldas/projeto-alfredos"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <svg aria-hidden="true"><use href="#i-github" /></svg>
+                    Ver no GitHub
+                  </a>
+                </div>
+              </div>
+
+              <figure class="browser">
+                <div class="browser-bar" aria-hidden="true">
+                  <div class="browser-dots"><i></i><i></i><i></i></div>
+                  <div class="browser-url">Telegram · Alfredo Jornalista</div>
+                </div>
+                <img
+                  class="browser-shot is-cropped"
+                  src="assets/img/projects/alfredos.webp"
+                  alt="Conversa no Telegram com o bot Alfredo Jornalista enviando notícias de tecnologia automaticamente."
+                  width="724"
+                  height="844"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            </article>
+          </div>
+
+          <h3 class="subhead" data-reveal>Outros repositórios</h3>
+
+          <div class="project-grid">
+            <article class="project-card is-wide panel panel-lit" data-reveal>
+              <img
+                class="project-shot"
+                src="assets/img/projects/simulador.webp"
+                alt="Gráfico gerado pelo simulador: série temporal autossimilar com rajadas e dependência de longo alcance."
+                width="900"
+                height="579"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="project-card-body">
+                <div class="card-top">
+                  <p class="project-type">Python · Simulação</p>
+                  <span class="stars" data-stars="simulador_filas_estocasticas">
+                    <svg aria-hidden="true"><use href="#i-star" /></svg>
+                    <b>1</b>
+                    <span class="sr-only">estrelas no GitHub</span>
+                  </span>
+                </div>
+                <h4>simulador_filas_estocasticas</h4>
+                <p>
+                  Simulador de eventos discretos para modelar e analisar sistemas de atendimento com teoria das filas.
+                  Gera séries autossimilares com rajadas e exporta os gráficos da simulação.
+                </p>
+                <a
+                  class="link-arrow"
+                  href="https://github.com/rencaldas/simulador_filas_estocasticas"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Ver repositório <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="project-card panel panel-lit" data-reveal style="--delay: 80ms">
+              <div class="card-top">
+                <p class="project-type">Go · REST API</p>
+                <span class="stars" data-stars="api-rencaldas">
+                  <svg aria-hidden="true"><use href="#i-star" /></svg>
+                  <b>1</b>
+                  <span class="sr-only">estrelas no GitHub</span>
+                </span>
+              </div>
+              <h4>api-rencaldas</h4>
               <p>
-                Automações no GitHub Actions que enviam notícias de tecnologia, jogos grátis da Epic Games & Steam e alertas de
-                segurança de dependências para o Telegram, sem depender de um servidor próprio ligado 24/7.
+                API de estudos para dar suporte aos meus repositórios e projetos, com integração planejada ao
+                ecossistema do GitHub.
               </p>
-              <a href="https://github.com/rencaldas/projeto-alfredos" target="_blank" rel="noreferrer">Ver projeto</a>
+              <a class="link-arrow" href="https://github.com/rencaldas/api-rencaldas" target="_blank" rel="noreferrer">
+                Ver repositório <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </a>
             </article>
-            <article class="project-card" data-aos="fade-up" data-aos-delay="200">
-              <p class="project-type">Go | REST API | Estudos</p>
-              <h3>api-rencaldas</h3>
+
+            <article class="project-card panel panel-lit" data-reveal style="--delay: 120ms">
+              <div class="card-top">
+                <p class="project-type">Python · Criptografia</p>
+                <span class="stars" data-stars="projeto_extensao_vi">
+                  <svg aria-hidden="true"><use href="#i-star" /></svg>
+                  <b>1</b>
+                  <span class="sr-only">estrelas no GitHub</span>
+                </span>
+              </div>
+              <h4>projeto_extensao_vi</h4>
               <p>
-                API de estudos criada para apoiar todos os meus repositórios e projetos, com planejamento de integração
-                futura ao ecossistema do GitHub.
+                Cifra simétrica de bloco de 32 bits com rede de substituição-permutação, em Python puro e sem
+                dependências externas. Projeto de Segurança de Sistemas e Criptografia (UVA).
               </p>
-              <a href="https://github.com/rencaldas/api-rencaldas" target="_blank" rel="noreferrer">Ver projeto</a>
+              <a
+                class="link-arrow"
+                href="https://github.com/rencaldas/projeto_extensao_vi"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver repositório <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </a>
             </article>
-            <article class="project-card" data-aos="fade-up" data-aos-delay="300">
-              <p class="project-type">Python | Security | Algorithms</p>
-              <h3>projeto_extensao_vi</h3>
-              <p>Cifra acadêmica de bloco de 32 bits com rede de substituição-permutação em Python puro.</p>
-              <a href="https://github.com/rencaldas/projeto_extensao_vi" target="_blank" rel="noreferrer">Ver projeto</a>
+
+            <article class="project-card panel panel-lit" data-reveal style="--delay: 160ms">
+              <div class="card-top">
+                <p class="project-type">Python · Estudos</p>
+                <span class="stars" data-stars="Workspace---Python" hidden>
+                  <svg aria-hidden="true"><use href="#i-star" /></svg>
+                  <b>0</b>
+                  <span class="sr-only">estrelas no GitHub</span>
+                </span>
+              </div>
+              <h4>Workspace---Python</h4>
+              <p>
+                Meu centro de estudos em Python: exercícios e mini-projetos organizados por tópico — fundamentos,
+                estruturas de dados, tratamento de erros, algoritmos e grafos, CLI e LeetCode.
+              </p>
+              <a
+                class="link-arrow"
+                href="https://github.com/rencaldas/Workspace---Python"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver repositório <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </a>
             </article>
-            <article class="project-card" data-aos="fade-up" data-aos-delay="400">
-              <p class="project-type">Python | Simulation | Performance</p>
-              <h3>simulador_filas_estocasticas</h3>
-              <p>Simulador de eventos discretos para modelar sistemas de atendimento com processos estocásticos.</p>
-              <a href="https://github.com/rencaldas/simulador_filas_estocasticas" target="_blank" rel="noreferrer">
-                Ver projeto
+
+            <article class="project-card panel panel-lit" data-reveal style="--delay: 200ms">
+              <div class="card-top">
+                <p class="project-type">Python · Django</p>
+                <span class="stars" data-stars="LabSoftwareA2">
+                  <svg aria-hidden="true"><use href="#i-star" /></svg>
+                  <b>2</b>
+                  <span class="sr-only">estrelas no GitHub</span>
+                </span>
+              </div>
+              <h4>LabSoftwareA2</h4>
+              <p>
+                Sistema web em Django com cadastro de contas e upload de mídia, feito para a disciplina de Laboratório
+                de Software.
+              </p>
+              <a class="link-arrow" href="https://github.com/rencaldas/LabSoftwareA2" target="_blank" rel="noreferrer">
+                Ver repositório <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </a>
+            </article>
+
+            <article class="project-card panel panel-lit" data-reveal style="--delay: 240ms">
+              <div class="card-top">
+                <p class="project-type">HTML · CSS · JS</p>
+                <span class="stars" data-stars="projeto-discover" hidden>
+                  <svg aria-hidden="true"><use href="#i-star" /></svg>
+                  <b>0</b>
+                  <span class="sr-only">estrelas no GitHub</span>
+                </span>
+              </div>
+              <h4>projeto-discover</h4>
+              <p>
+                Página de links no estilo DevLinks, com alternância de tema claro/escuro em JavaScript puro. Projeto
+                do programa Discover, da Rocketseat.
+              </p>
+              <a
+                class="link-arrow"
+                href="https://github.com/rencaldas/projeto-discover"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver repositório <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </a>
+            </article>
+
+            <article class="project-card panel panel-lit" data-reveal style="--delay: 280ms">
+              <div class="card-top">
+                <p class="project-type">HTML · CSS · JS</p>
+                <span class="stars" data-stars="rencaldas.github.io">
+                  <svg aria-hidden="true"><use href="#i-star" /></svg>
+                  <b>1</b>
+                  <span class="sr-only">estrelas no GitHub</span>
+                </span>
+              </div>
+              <h4>rencaldas.github.io</h4>
+              <p>
+                Este portfólio. Site estático sem framework nem bundler, com tema claro/escuro, estudo de caso
+                bilíngue e formulário de contato sem backend.
+              </p>
+              <a
+                class="link-arrow"
+                href="https://github.com/rencaldas/rencaldas.github.io"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver repositório <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
               </a>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section muted" id="experiencia">
-        <div class="container timeline-layout">
-          <div class="section-heading" data-aos="fade-up">
+      <!-- Experiência -->
+      <section class="section" id="experiencia">
+        <div class="shell split">
+          <div class="section-head" data-reveal style="margin-bottom: 0">
             <p class="eyebrow">Experiência</p>
-            <h2>Histórico profissional</h2>
+            <h2>Trajetória profissional.</h2>
+            <p class="lead" style="margin-top: 1rem">
+              Da rotina administrativa ao ambiente de produção — sempre puxando para o lado técnico.
+            </p>
           </div>
+
           <div class="timeline">
-            <article class="timeline-item" data-aos="fade-up">
-              <span class="timeline-date">Jun 2026 - atual</span>
-              <h3>Analista de Suporte de Sistemas | Ramada Atacadista</h3>
+            <article class="timeline-item panel panel-lit" data-reveal>
+              <span class="timeline-date">Jun 2026 — atual</span>
+              <h3>Analista de Suporte de Sistemas</h3>
+              <p class="timeline-org">Ramada Atacadista</p>
               <p>
-                Desenvolvi melhorias em sistemas internos, website, aplicativo, workflows n8n e ERP Sankhya, automatizando
-                processos. Realizei testes e merges de pull requests, diagnostiquei bancos Oracle e AWS e integrações de APIs,
-                apoiando correções em produção. Prestei suporte via GLPI e manutenção de equipamentos e participei de
-                sprints e cerimônias Scrum. Desenvolvi o Seslock Holmes, reduzindo a taxa de bounce de 11,6% para 0,8%
-                (-93%) em um provedor e de 6,8% para 1,8% (-74%) no cenário geral com correções de endereços, MX e DMARC.
+                Melhorias em sistemas internos, site, aplicativo, workflows n8n e ERP Sankhya. Testes e merge de pull
+                requests, diagnóstico de bancos Oracle e AWS, integrações de API e apoio a correções em produção.
+                Suporte via GLPI, manutenção de equipamentos e participação em sprints e cerimônias Scrum. Desenvolvi o
+                Seslock Holmes, que reduziu a taxa de bounce de 11,6% para 0,8% em um provedor e de 6,8% para 1,8% no
+                cenário geral.
               </p>
+              <div class="timeline-tags">
+                <span class="tag">Oracle</span><span class="tag">AWS</span><span class="tag">n8n</span>
+                <span class="tag">Sankhya</span><span class="tag">GLPI</span><span class="tag">Scrum</span>
+              </div>
             </article>
-            <article class="timeline-item" data-aos="fade-up" data-aos-delay="140">
-              <span class="timeline-date">Set 2023 - Ago 2025</span>
-              <h3>Auxiliar Administrativo | Multiplan Empreendimentos S.A.</h3>
+
+            <article class="timeline-item panel panel-lit" data-reveal style="--delay: 120ms">
+              <span class="timeline-date">Set 2023 — Ago 2025</span>
+              <h3>Auxiliar Administrativo</h3>
+              <p class="timeline-org">Multiplan Empreendimentos S.A.</p>
               <p>
-                Controle documental, solicitações no SAP GUI, análise de planilhas e automações em Excel com redução
-                aproximada de 50% no trabalho manual em rotinas administrativas.
+                Controle documental, solicitações no SAP GUI e análise de planilhas. Automações em Excel que reduziram
+                em aproximadamente 50% o trabalho manual das rotinas administrativas da área.
               </p>
+              <div class="timeline-tags">
+                <span class="tag">SAP GUI</span><span class="tag">Excel</span><span class="tag">Processos</span>
+              </div>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container split">
-          <div class="section-heading" data-aos="fade-up">
+      <!-- Foco atual -->
+      <section class="section" style="padding-top: 0">
+        <div class="shell split">
+          <div class="section-head" data-reveal style="margin-bottom: 0">
             <p class="eyebrow">Agora</p>
             <h2>Em evolução contínua.</h2>
           </div>
-          <div class="focus-grid" data-aos="fade-up" data-aos-delay="100">
-            <span>AWS Solutions Architect</span>
-            <span>Docker e Kubernetes</span>
-            <span>Terraform e CI/CD</span>
-            <span>Microservices e Clean Architecture</span>
-            <span>AI e LLMs aplicados à automação</span>
-            <span>Platform Engineering</span>
+          <div class="chip-grid" data-reveal style="--delay: 100ms">
+            <span class="chip">AWS Solutions Architect</span>
+            <span class="chip">Docker &amp; Kubernetes</span>
+            <span class="chip">Terraform &amp; CI/CD</span>
+            <span class="chip">Microservices</span>
+            <span class="chip">Clean Architecture</span>
+            <span class="chip">LLMs aplicados à automação</span>
+            <span class="chip">Platform Engineering</span>
+            <span class="chip">Observabilidade</span>
           </div>
         </div>
       </section>
 
-      <section class="section contact-section">
-        <div class="container contact-panel" data-aos="fade-up">
+      <!-- Contato -->
+      <section class="section" id="contato">
+        <div class="shell contact-grid">
           <div>
-            <p class="eyebrow">Contato</p>
-            <h2>Vamos construir software que simplifica operações.</h2>
-            <p>
-              Aberto a conversas sobre desenvolvimento backend, automação, cloud, dados e integrações corporativas.
-            </p>
+            <div class="section-head" data-reveal style="margin-bottom: 0">
+              <p class="eyebrow">Contato</p>
+              <h2>Vamos conversar.</h2>
+              <p class="lead" style="margin-top: 1rem">
+                Aberto a oportunidades e conversas sobre cloud, automação, dados, backend e integrações corporativas.
+                Respondo em até dois dias úteis.
+              </p>
+            </div>
+
+            <div class="contact-links" data-reveal style="--delay: 120ms">
+              <a class="contact-link" href="https://www.linkedin.com/in/rencaldas/" target="_blank" rel="noreferrer">
+                <svg aria-hidden="true"><use href="#i-linkedin" /></svg>
+                <div><strong>LinkedIn</strong><span>in/rencaldas</span></div>
+              </a>
+              <a class="contact-link" href="https://github.com/rencaldas" target="_blank" rel="noreferrer">
+                <svg aria-hidden="true"><use href="#i-github" /></svg>
+                <div><strong>GitHub</strong><span>@rencaldas</span></div>
+              </a>
+              <a class="contact-link" href="mailto:renato.deacaldas@gmail.com">
+                <svg aria-hidden="true"><use href="#i-mail" /></svg>
+                <div><strong>E-mail</strong><span>renato.deacaldas@gmail.com</span></div>
+              </a>
+            </div>
           </div>
-          <div class="contact-actions">
-            <a class="button primary" href="https://www.linkedin.com/in/rencaldas/" target="_blank" rel="noreferrer">
-              Chamar no LinkedIn
-            </a>
-            <a class="button secondary light" href="https://github.com/rencaldas" target="_blank" rel="noreferrer">
-              Ver GitHub
-            </a>
-          </div>
+
+          <form
+            class="form panel panel-lit"
+            data-form
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            novalidate
+            data-reveal
+            style="--delay: 80ms"
+          >
+            <input type="hidden" name="access_key" value="" data-access-key />
+            <input type="hidden" name="subject" value="Novo contato pelo portfólio" />
+            <input type="hidden" name="from_name" value="Portfólio rencaldas" />
+
+            <div class="honeypot" aria-hidden="true">
+              <label for="botcheck">Não preencha este campo</label>
+              <input id="botcheck" type="text" name="botcheck" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Nome</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Como devo te chamar?"
+                  autocomplete="name"
+                  required
+                  aria-describedby="name-error"
+                />
+                <p class="field-error" id="name-error" data-error-for="name"></p>
+              </div>
+              <div class="field">
+                <label for="email">E-mail</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="voce@empresa.com"
+                  autocomplete="email"
+                  required
+                  aria-describedby="email-error"
+                />
+                <p class="field-error" id="email-error" data-error-for="email"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="message">Mensagem</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Conte rapidamente sobre a oportunidade ou o projeto."
+                required
+                minlength="12"
+                aria-describedby="message-error"
+              ></textarea>
+              <p class="field-error" id="message-error" data-error-for="message"></p>
+            </div>
+
+            <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+
+            <div class="form-foot">
+              <p class="form-note">Seus dados vão direto para o meu e-mail. Sem newsletter, sem repasse.</p>
+              <button class="btn btn-primary" type="submit" data-submit>
+                Enviar mensagem
+                <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </button>
+            </div>
+          </form>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <div class="container footer-inner">
-        <span>Renato de Azevedo Caldas</span>
-        <span>Cloud, automação, backend e integrações.</span>
+      <div class="shell footer-inner">
+        <div class="footer-brand">
+          <strong>Renato de Azevedo Caldas</strong>
+          <span>Cloud · Automação · Backend · Integrações</span>
+        </div>
+        <nav class="footer-links" aria-label="Links do rodapé">
+          <a href="https://www.linkedin.com/in/rencaldas/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://github.com/rencaldas" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="mailto:renato.deacaldas@gmail.com">E-mail</a>
+          <a href="seslock-holmes/">Estudo de caso</a>
+        </nav>
+        <a class="to-top" href="#top">
+          <svg aria-hidden="true"><use href="#i-arrow-up" /></svg>
+          Topo
+        </a>
       </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-      AOS.init({
-        duration: 900,
-        easing: "ease-out",
-        once: true,
-        offset: 90,
-      });
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Renato de Azevedo Caldas",
+        "alternateName": "rencaldas",
+        "jobTitle": "Analista de Suporte de Sistemas",
+        "url": "https://rencaldas.github.io/",
+        "image": "https://rencaldas.github.io/assets/img/profile.webp",
+        "email": "mailto:renato.deacaldas@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Rio de Janeiro", "addressCountry": "BR" },
+        "worksFor": { "@type": "Organization", "name": "Ramada Atacadista" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universidade Veiga de Almeida" },
+        "knowsAbout": [
+          "Cloud Computing",
+          "AWS",
+          "Automação de processos",
+          "Bancos de dados",
+          "Integrações de sistemas",
+          "Python",
+          "TypeScript"
+        ],
+        "sameAs": ["https://github.com/rencaldas", "https://www.linkedin.com/in/rencaldas/"]
+      }
     </script>
-    <script src="assets/js/script.js"></script>
+
+    <script src="assets/js/script.js" defer></script>
   </body>
 </html>
