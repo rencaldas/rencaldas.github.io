@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark" data-locale="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Seslock Holmes — Estudo de caso | Renato de Azevedo Caldas</title>
+    <meta
+      name="description"
+      content="Estudo de caso do Seslock Holmes: dashboard de investigação de e-mails do AWS SES que reduziu a taxa de bounce de 11,6% para 0,8% em um provedor."
+    />
+    <meta name="theme-color" content="#05070d" />
+    <link rel="canonical" href="https://rencaldas.github.io/seslock-holmes/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://rencaldas.github.io/seslock-holmes/" />
+    <meta property="og:title" content="Seslock Holmes — Estudo de caso" />
+    <meta
+      property="og:description"
+      content="Como um dashboard de diagnóstico do AWS SES derrubou a taxa de bounce de 11,6% para 0,8%."
+    />
+    <meta property="og:image" content="https://rencaldas.github.io/assets/img/og-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script>
+      (() => {
+        const root = document.documentElement;
+        root.classList.add("js");
+        try {
+          const savedTheme = localStorage.getItem("rencaldas-theme");
+          root.dataset.theme =
+            savedTheme || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+          const savedLocale = localStorage.getItem("rencaldas-locale");
+          const browserLocale = (navigator.language || "pt").toLowerCase().startsWith("pt") ? "pt" : "en";
+          root.dataset.locale = savedLocale === "en" || savedLocale === "pt" ? savedLocale : browserLocale;
+          root.lang = root.dataset.locale === "en" ? "en" : "pt-BR";
+        } catch {
+          root.dataset.theme = "dark";
+          root.dataset.locale = "pt";
+        }
+      })();
+    </script>
+
+    <link rel="icon" href="../assets/img/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/case-study.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main" data-lang="pt">Ir para o conteúdo</a>
+    <a class="skip-link" href="#main" data-lang="en">Skip to content</a>
+
+    <div class="backdrop" aria-hidden="true">
+      <div class="backdrop-aurora">
+        <span class="blob blob-a"></span>
+        <span class="blob blob-b"></span>
+        <span class="blob blob-c"></span>
+      </div>
+      <div class="backdrop-grid"></div>
+      <div class="backdrop-noise"></div>
+    </div>
+
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </symbol>
+        <symbol id="i-arrow-ur" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 17 7M8 7h9v9" />
+        </symbol>
+        <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.4 4.7 18.4 5 18.4 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z" />
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" />
+        </symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5a8.5 8.5 0 1 0 10.9 10.9Z" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <header class="header is-stuck" data-header>
+      <div class="header-inner">
+        <a class="back-link" href="../">
+          <svg aria-hidden="true"><use href="#i-arrow-left" /></svg>
+          <span data-lang="pt">Portfólio</span>
+          <span data-lang="en">Portfolio</span>
+        </a>
+
+        <div class="header-actions">
+          <div class="lang-switch" role="group" aria-label="Idioma / Language">
+            <button type="button" data-set-locale="pt" aria-pressed="true">PT</button>
+            <button type="button" data-set-locale="en" aria-pressed="false">EN</button>
+          </div>
+          <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Alternar tema">
+            <svg class="icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+            <svg class="icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+          </button>
+        </div>
+      </div>
+      <div class="scroll-progress" data-progress></div>
+    </header>
+
+    <main id="main">
+      <!-- Hero -->
+      <section class="case-hero">
+        <div class="shell">
+          <p class="eyebrow" data-reveal>
+            <span data-lang="pt">Estudo de caso</span>
+            <span data-lang="en">Case study</span>
+          </p>
+
+          <h1 class="case-title gradient-flow" data-reveal style="--delay: 60ms">Seslock Holmes</h1>
+
+          <p class="case-sub" data-reveal style="--delay: 120ms">
+            <span data-lang="pt">
+              Um dashboard de investigação para o AWS SES que transformou bounce em diagnóstico — e diagnóstico em
+              correção. A taxa de bounce de um provedor caiu de <strong>11,6% para 0,8%</strong>.
+            </span>
+            <span data-lang="en">
+              An investigation dashboard for AWS SES that turned bounces into diagnoses — and diagnoses into fixes. One
+              provider's bounce rate dropped from <strong>11.6% to 0.8%</strong>.
+            </span>
+          </p>
+
+          <dl class="case-meta" data-reveal style="--delay: 180ms">
+            <div>
+              <dt data-lang="pt">Papel</dt>
+              <dt data-lang="en">Role</dt>
+              <dd data-lang="pt">Desenvolvimento, diagnóstico e operação</dd>
+              <dd data-lang="en">Development, diagnostics and operations</dd>
+            </div>
+            <div>
+              <dt data-lang="pt">Contexto</dt>
+              <dt data-lang="en">Context</dt>
+              <dd>Ramada Atacadista</dd>
+            </div>
+            <div>
+              <dt data-lang="pt">Situação</dt>
+              <dt data-lang="en">Status</dt>
+              <dd data-lang="pt">Em produção</dd>
+              <dd data-lang="en">In production</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>React · TypeScript · Supabase · AWS SES · Vercel</dd>
+            </div>
+          </dl>
+
+          <div class="case-actions" data-reveal style="--delay: 240ms">
+            <a
+              class="btn btn-primary"
+              href="https://github.com/rencaldas/seslock-holmes"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg aria-hidden="true"><use href="#i-github" /></svg>
+              <span data-lang="pt">Ver o código</span>
+              <span data-lang="en">View the code</span>
+            </a>
+            <a class="btn btn-ghost" href="https://seslock-holmes.vercel.app/" target="_blank" rel="noreferrer">
+              <span data-lang="pt">Abrir a demo</span>
+              <span data-lang="en">Open the demo</span>
+              <svg aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+            </a>
+          </div>
+
+          <p class="mono" data-reveal style="--delay: 300ms; margin-top: 0.9rem">
+            <span data-lang="pt">A demo pede um projeto Supabase configurado para exibir dados.</span>
+            <span data-lang="en">The demo needs a configured Supabase project to show data.</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- Problema -->
+      <section class="case-section">
+        <div class="shell case-layout">
+          <h2 data-reveal>
+            <span data-lang="pt">O problema</span>
+            <span data-lang="en">The problem</span>
+          </h2>
+          <div class="case-body" data-reveal style="--delay: 80ms">
+            <div data-lang="pt">
+              <p>
+                O AWS SES emite um evento para cada coisa que acontece com um e-mail: entrega, bounce, reclamação,
+                rejeição. Só que esses eventos chegam soltos. Para quem está no suporte, a informação que sobra é a pior
+                possível: <strong>“o e-mail não chegou”</strong>.
+              </p>
+              <p>
+                Sem uma leitura consolidada não dá para separar as causas. Endereço digitado errado, domínio sem
+                registro MX e falha de autenticação DMARC produzem sintomas parecidos e exigem correções completamente
+                diferentes.
+              </p>
+              <p>
+                E bounce alto não é só incômodo operacional: ele degrada a <strong>reputação de envio</strong>. Quanto
+                pior a reputação, mais mensagens legítimas caem em spam — até o provedor começar a bloquear o envio.
+              </p>
+            </div>
+            <div data-lang="en">
+              <p>
+                AWS SES emits an event for everything that happens to an email: delivery, bounce, complaint, rejection.
+                Those events arrive scattered. For whoever is on support duty, the only information left is the worst
+                possible one: <strong>“the email didn't arrive”</strong>.
+              </p>
+              <p>
+                Without a consolidated view you cannot separate causes. A mistyped address, a domain with no MX record
+                and a DMARC authentication failure produce similar symptoms and require completely different fixes.
+              </p>
+              <p>
+                And a high bounce rate is not just an operational annoyance: it degrades
+                <strong>sending reputation</strong>. The worse the reputation, the more legitimate mail lands in spam —
+                until the provider starts blocking delivery altogether.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Abordagem -->
+      <section class="case-section">
+        <div class="shell case-layout">
+          <h2 data-reveal>
+            <span data-lang="pt">A abordagem</span>
+            <span data-lang="en">The approach</span>
+          </h2>
+          <div class="case-body" data-reveal style="--delay: 80ms">
+            <div data-lang="pt">
+              <p>
+                Construí um painel somente-leitura sobre os eventos já armazenados em Supabase/PostgreSQL. A regra
+                central: <strong>o dashboard nunca cria, edita ou remove evento de e-mail</strong> — ele só lê, e a
+                leitura depende de RLS e autenticação no banco.
+              </p>
+              <ul>
+                <li>
+                  <strong>Indicadores calculados no banco</strong>, via RPC, para refletir o período inteiro filtrado em
+                  vez de uma amostra carregada no navegador.
+                </li>
+                <li>
+                  <strong>Investigação por eixo</strong>: destinatário, remetente, provedor (domínio do destinatário) ou
+                  diagnóstico de bounce, com sugestões de e-mails semelhantes quando não há correspondência exata.
+                </li>
+                <li>
+                  <strong>Rastreamento cronológico</strong> da mensagem, com origem/IP, tempo de processamento, resposta
+                  SMTP, tipo e subtipo de bounce e diagnostic code direto no card.
+                </li>
+                <li>
+                  <strong>Relatórios agendados</strong> com filtros próprios e múltiplos destinatários, disparados por um
+                  workflow do GitHub Actions a cada 15 minutos e reforçados por um cron diário na Vercel.
+                </li>
+                <li>
+                  <strong>Compartilhamento público somente-leitura</strong>, com os filtros travados e protegido por
+                  token de 256 bits, para quem precisa ver o painel sem ter conta.
+                </li>
+              </ul>
+            </div>
+            <div data-lang="en">
+              <p>
+                I built a read-only panel on top of the events already stored in Supabase/PostgreSQL. The core rule:
+                <strong>the dashboard never creates, edits or deletes an email event</strong> — it only reads, and that
+                read depends on RLS and authentication in the database.
+              </p>
+              <ul>
+                <li>
+                  <strong>Metrics computed in the database</strong>, through RPCs, so they reflect the entire filtered
+                  period instead of a sample loaded in the browser.
+                </li>
+                <li>
+                  <strong>Investigation by axis</strong>: recipient, sender, provider (recipient domain) or bounce
+                  diagnosis, with similar-address suggestions when there is no exact match.
+                </li>
+                <li>
+                  <strong>Chronological message tracing</strong>, exposing source/IP, processing time, SMTP response,
+                  bounce type and subtype and the diagnostic code right on the card.
+                </li>
+                <li>
+                  <strong>Scheduled reports</strong> with their own filters and multiple recipients, fired by a GitHub
+                  Actions workflow every 15 minutes and backed by a daily Vercel cron.
+                </li>
+                <li>
+                  <strong>Public read-only sharing</strong>, with filters locked and protected by a 256-bit token, for
+                  people who need to see the panel without an account.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Resultados -->
+      <section class="case-section">
+        <div class="shell">
+          <div class="section-head" data-reveal style="margin-bottom: 2rem">
+            <p class="eyebrow">
+              <span data-lang="pt">Resultados</span>
+              <span data-lang="en">Results</span>
+            </p>
+            <h2>
+              <span data-lang="pt">O número que mudou.</span>
+              <span data-lang="en">The number that moved.</span>
+            </h2>
+          </div>
+
+          <div class="chart-card panel panel-lit" data-reveal>
+            <div class="chart-head">
+              <h3>
+                <span data-lang="pt">Taxa de bounce, antes e depois</span>
+                <span data-lang="en">Bounce rate, before and after</span>
+              </h3>
+              <div class="chart-legend">
+                <span class="legend-item">
+                  <span class="legend-swatch legend-before" aria-hidden="true"></span>
+                  <span data-lang="pt">Antes</span>
+                  <span data-lang="en">Before</span>
+                </span>
+                <span class="legend-item">
+                  <span class="legend-swatch legend-after" aria-hidden="true"></span>
+                  <span data-lang="pt">Depois</span>
+                  <span data-lang="en">After</span>
+                </span>
+              </div>
+            </div>
+
+            <p class="sr-only" id="chart-a11y">
+              <span data-lang="pt">
+                Gráfico de barras da taxa de bounce antes e depois do Seslock Holmes. Em um provedor, caiu de 11,6% para
+                0,8%. No cenário geral, caiu de 6,8% para 1,8%.
+              </span>
+              <span data-lang="en">
+                Bar chart of the bounce rate before and after Seslock Holmes. For one provider it fell from 11.6% to
+                0.8%. Overall it fell from 6.8% to 1.8%.
+              </span>
+            </p>
+
+            <svg class="chart-svg" viewBox="0 0 720 320" role="img" aria-labelledby="chart-a11y">
+              <defs>
+                <pattern id="after-hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                  <rect width="6" height="6" fill="var(--c-after)" />
+                  <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255,255,255,.55)" stroke-width="2" />
+                </pattern>
+              </defs>
+
+              <g stroke="var(--border)" stroke-width="1">
+                <line x1="66" y1="260" x2="700" y2="260" />
+                <line x1="66" y1="200" x2="700" y2="200" stroke-dasharray="4 6" />
+                <line x1="66" y1="140" x2="700" y2="140" stroke-dasharray="4 6" />
+                <line x1="66" y1="80" x2="700" y2="80" stroke-dasharray="4 6" />
+                <line x1="66" y1="20" x2="700" y2="20" stroke-dasharray="4 6" />
+              </g>
+
+              <g class="c-axis" fill="var(--text-dim)" font-family="JetBrains Mono, monospace" font-size="13" text-anchor="end">
+                <text x="54" y="265">0%</text>
+                <text x="54" y="205">3%</text>
+                <text x="54" y="145">6%</text>
+                <text x="54" y="85">9%</text>
+                <text x="54" y="25">12%</text>
+              </g>
+
+              <g>
+                <rect x="130" y="28" width="76" height="232" rx="6" fill="var(--c-before)" />
+                <rect x="224" y="244" width="76" height="16" rx="6" fill="url(#after-hatch)" />
+                <rect x="430" y="124" width="76" height="136" rx="6" fill="var(--c-before)" />
+                <rect x="524" y="224" width="76" height="36" rx="6" fill="url(#after-hatch)" />
+              </g>
+
+              <g class="c-value" fill="var(--text)" font-family="JetBrains Mono, monospace" font-size="15" font-weight="500" text-anchor="middle">
+                <text x="168" y="18">11,6%</text>
+                <text x="262" y="234">0,8%</text>
+                <text x="468" y="114">6,8%</text>
+                <text x="562" y="214">1,8%</text>
+              </g>
+
+              <g class="c-cat" fill="var(--text-soft)" font-family="Inter, sans-serif" font-size="15" text-anchor="middle">
+                <text x="215" y="290" data-lang="pt">Um provedor</text>
+                <text x="215" y="290" data-lang="en">One provider</text>
+                <text x="515" y="290" data-lang="pt">Cenário geral</text>
+                <text x="515" y="290" data-lang="en">Overall</text>
+              </g>
+            </svg>
+
+            <div class="delta-row">
+              <div class="delta">
+                <b style="color: var(--c-after)">-93%</b>
+                <span data-lang="pt">bounce em um provedor (11,6% → 0,8%)</span>
+                <span data-lang="en">bounce for one provider (11.6% → 0.8%)</span>
+              </div>
+              <div class="delta">
+                <b style="color: var(--c-after)">-74%</b>
+                <span data-lang="pt">bounce no cenário geral (6,8% → 1,8%)</span>
+                <span data-lang="en">bounce overall (6.8% → 1.8%)</span>
+              </div>
+              <div class="delta">
+                <b data-lang="pt">Reputação</b>
+                <b data-lang="en">Reputation</b>
+                <span data-lang="pt">menos spam e menor risco de bloqueio</span>
+                <span data-lang="en">less spam and lower blocking risk</span>
+              </div>
+            </div>
+
+            <p class="chart-note">
+              <span data-lang="pt">
+                As duas séries usam cores distinguíveis nas formas mais comuns de daltonismo, e a barra “depois” também
+                é hachurada — nenhuma leitura do gráfico depende só de cor. Todos os valores estão escritos ao lado das
+                barras.
+              </span>
+              <span data-lang="en">
+                The two series use colors that stay distinguishable under the most common forms of color vision
+                deficiency, and the “after” bar is also hatched — no reading of this chart depends on color alone. Every
+                value is written next to its bar.
+              </span>
+            </p>
+          </div>
+
+          <div class="case-body" style="margin-top: 2rem" data-reveal>
+            <div class="callout" data-lang="pt">
+              O número só se moveu porque cada bounce virou uma ação concreta: endereços inválidos removidos da base,
+              domínios sem registro MX corrigidos e falhas de autenticação DMARC ajustadas. O painel não conserta
+              entregabilidade sozinho — ele mostra onde consertar.
+            </div>
+            <div class="callout" data-lang="en">
+              The number only moved because every bounce became a concrete action: invalid addresses removed from the
+              base, domains without MX records fixed, and DMARC authentication failures corrected. The panel does not
+              fix deliverability by itself — it shows where to fix it.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Arquitetura -->
+      <section class="case-section">
+        <div class="shell case-layout">
+          <h2 data-reveal>
+            <span data-lang="pt">Como está construído</span>
+            <span data-lang="en">How it is built</span>
+          </h2>
+          <div class="case-body" data-reveal style="--delay: 80ms">
+            <div class="spec-grid">
+              <article class="spec panel panel-lit">
+                <h3>Frontend</h3>
+                <p data-lang="pt">React com TypeScript sobre Vite, organizado por feature e com i18n PT/EN.</p>
+                <p data-lang="en">React with TypeScript on Vite, organised by feature, with PT/EN i18n.</p>
+              </article>
+              <article class="spec panel panel-lit">
+                <h3 data-lang="pt">Dados</h3>
+                <h3 data-lang="en">Data</h3>
+                <p data-lang="pt">
+                  Supabase/PostgreSQL com RLS e RPCs de analytics; migrations versionadas no repositório.
+                </p>
+                <p data-lang="en">
+                  Supabase/PostgreSQL with RLS and analytics RPCs; migrations versioned in the repository.
+                </p>
+              </article>
+              <article class="spec panel panel-lit">
+                <h3 data-lang="pt">Envio de relatórios</h3>
+                <h3 data-lang="en">Report delivery</h3>
+                <p data-lang="pt">
+                  Funções serverless na Vercel, fora do navegador, com token de administração próprio.
+                </p>
+                <p data-lang="en">Serverless functions on Vercel, outside the browser, with their own admin token.</p>
+              </article>
+              <article class="spec panel panel-lit">
+                <h3 data-lang="pt">Agendamento</h3>
+                <h3 data-lang="en">Scheduling</h3>
+                <p data-lang="pt">GitHub Actions a cada 15 minutos, com cron diário da Vercel como reforço.</p>
+                <p data-lang="en">GitHub Actions every 15 minutes, with a daily Vercel cron as backup.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Segurança -->
+      <section class="case-section">
+        <div class="shell case-layout">
+          <h2 data-reveal>
+            <span data-lang="pt">Segurança e acesso</span>
+            <span data-lang="en">Security and access</span>
+          </h2>
+          <div class="case-body" data-reveal style="--delay: 80ms">
+            <div data-lang="pt">
+              <p>
+                Um painel que lê e-mail de cliente é um painel que precisa errar pouco. As decisões de acesso vieram
+                antes das telas:
+              </p>
+              <ul>
+                <li>
+                  O frontend usa apenas a URL e a chave pública do Supabase — <strong>nunca uma service key</strong>.
+                </li>
+                <li>
+                  <strong>Perfis de acesso</strong>: toda conta é <code>viewer</code> ou <code>manager</code>. Viewers
+                  só visualizam; managers também criam e editam agendamentos e links. Conta nova começa como viewer.
+                </li>
+                <li>
+                  <strong>Log de auditoria</strong> somente-leitura, visível a qualquer usuário autenticado, com toda
+                  ação administrativa: criação, edição, pausa, exclusão, disparo forçado e resultado dos envios.
+                </li>
+                <li>
+                  Nos links públicos, a lista de atividade recente vem <strong>desligada por padrão</strong>, porque ela
+                  expõe e-mail de destinatário. O link tem validade opcional e pode ser regenerado ou revogado.
+                </li>
+              </ul>
+            </div>
+            <div data-lang="en">
+              <p>
+                A panel that reads customer email is a panel that needs a small blast radius. Access decisions came
+                before the screens:
+              </p>
+              <ul>
+                <li>
+                  The frontend only uses the Supabase URL and publishable key — <strong>never a service key</strong>.
+                </li>
+                <li>
+                  <strong>Access profiles</strong>: every account is a <code>viewer</code> or a <code>manager</code>.
+                  Viewers only read; managers also create and edit schedules and links. New accounts start as viewers.
+                </li>
+                <li>
+                  <strong>Read-only audit log</strong>, visible to any authenticated user, covering every administrative
+                  action: creation, edit, pause, deletion, forced runs and the outcome of each automated send.
+                </li>
+                <li>
+                  On public links the recent-activity list is <strong>off by default</strong>, because it exposes
+                  recipient addresses. Links have an optional expiry and can be regenerated or revoked.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Aprendizados -->
+      <section class="case-section">
+        <div class="shell case-layout">
+          <h2 data-reveal>
+            <span data-lang="pt">O que eu levo disso</span>
+            <span data-lang="en">What I took from it</span>
+          </h2>
+          <div class="case-body" data-reveal style="--delay: 80ms">
+            <div data-lang="pt">
+              <ul>
+                <li>
+                  <strong>Indicador calculado no cliente mente.</strong> Enquanto a taxa de bounce saía de uma amostra
+                  paginada, ela mudava conforme a rolagem. Empurrar o cálculo para RPC no banco resolveu o número e a
+                  confiança nele.
+                </li>
+                <li>
+                  <strong>Bounce não é um número, é uma lista de causas.</strong> O painel só ficou útil quando passou a
+                  separar subtipo — suppressed, general, mailbox full, content rejected, undetermined.
+                </li>
+                <li>
+                  <strong>Compartilhar exige desenhar o que não vai junto.</strong> A parte difícil do link público não
+                  foi gerar o token: foi decidir que a atividade recente fica fora por padrão.
+                </li>
+              </ul>
+            </div>
+            <div data-lang="en">
+              <ul>
+                <li>
+                  <strong>A metric computed in the client lies.</strong> While the bounce rate came from a paginated
+                  sample, it changed as you scrolled. Pushing the computation into a database RPC fixed both the number
+                  and the trust in it.
+                </li>
+                <li>
+                  <strong>A bounce is not a number, it is a list of causes.</strong> The panel only became useful once
+                  it separated subtypes — suppressed, general, mailbox full, content rejected, undetermined.
+                </li>
+                <li>
+                  <strong>Sharing means designing what stays out.</strong> The hard part of the public link was not
+                  generating the token: it was deciding that recent activity is excluded by default.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="case-section">
+        <div class="shell">
+          <div class="case-cta panel panel-lit" data-reveal>
+            <h2>
+              <span data-lang="pt">Quer ver o resto do trabalho?</span>
+              <span data-lang="en">Want to see the rest of the work?</span>
+            </h2>
+            <p>
+              <span data-lang="pt">
+                Tem mais projeto, experiência e formas de falar comigo do outro lado deste link.
+              </span>
+              <span data-lang="en">There are more projects, experience and ways to reach me on the other side.</span>
+            </p>
+            <div class="case-actions" style="justify-content: center">
+              <a class="btn btn-primary" href="../">
+                <span data-lang="pt">Voltar ao portfólio</span>
+                <span data-lang="en">Back to the portfolio</span>
+              </a>
+              <a class="btn btn-ghost" href="../#contato">
+                <span data-lang="pt">Falar comigo</span>
+                <span data-lang="en">Get in touch</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <div class="footer-brand">
+          <strong>Renato de Azevedo Caldas</strong>
+          <span data-lang="pt">Estudo de caso · Seslock Holmes</span>
+          <span data-lang="en">Case study · Seslock Holmes</span>
+        </div>
+        <nav class="footer-links" aria-label="Links">
+          <a href="../">Portfólio</a>
+          <a href="https://github.com/rencaldas/seslock-holmes" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="mailto:renato.deacaldas@gmail.com">E-mail</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll("[data-set-locale]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const locale = button.dataset.setLocale;
+          document.documentElement.dataset.locale = locale;
+          document.documentElement.lang = locale === "en" ? "en" : "pt-BR";
+          document.querySelectorAll("[data-set-locale]").forEach((other) => {
+            other.setAttribute("aria-pressed", String(other.dataset.setLocale === locale));
+          });
+          try {
+            localStorage.setItem("rencaldas-locale", locale);
+          } catch {
+            /* idioma apenas nesta sessão */
+          }
+        });
+      });
+
+      const current = document.documentElement.dataset.locale;
+      document.querySelectorAll("[data-set-locale]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.setLocale === current));
+      });
+    </script>
+    <script src="../assets/js/script.js" defer></script>
+  </body>
+</html>
