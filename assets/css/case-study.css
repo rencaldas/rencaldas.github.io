@@ -1,5 +1,5 @@
-/* Bilingual switch: only the active locale's copy stays in the DOM flow, which
-   also keeps the hidden language out of the accessibility tree. */
+/* Troca bilíngue: só o idioma ativo fica no fluxo do DOM, o que também tira o
+   idioma oculto da árvore de acessibilidade. */
 :root[data-locale="pt"] [data-lang="en"],
 :root[data-locale="en"] [data-lang="pt"] {
   display: none;
@@ -8,96 +8,111 @@
 .lang-switch {
   display: inline-flex;
   padding: 3px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
-  background: var(--surface);
 }
 
 .lang-switch button {
-  padding: 0.35rem 0.75rem;
+  padding: 0.35rem 0.8rem;
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--text-dim);
+  color: var(--text-soft);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.06em;
-  cursor: pointer;
-  transition: background-color 240ms var(--ease), color 240ms var(--ease);
+  transition: background-color 300ms var(--ease), color 300ms var(--ease);
 }
 
 .lang-switch button[aria-pressed="true"] {
-  background: var(--grad);
-  color: var(--accent-ink);
+  background: var(--invert-bg);
+  color: var(--invert-text);
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--text-soft);
-  font-size: 0.88rem;
+  gap: 0.55rem;
+  padding: 0.5rem 1rem 0.5rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 0.9rem;
   font-weight: 500;
-  transition: color 240ms var(--ease), gap 240ms var(--ease);
+  transition: border-color 300ms var(--ease), gap 400ms var(--ease-out);
 }
 
 .back-link svg {
   width: 1rem;
   height: 1rem;
-  transition: transform 240ms var(--ease);
+  transition: transform 400ms var(--ease-out);
 }
 
 .back-link:hover {
-  color: var(--accent);
-  gap: 0.7rem;
+  gap: 0.8rem;
+  border-color: var(--text);
 }
 
 .back-link:hover svg {
-  transform: translateX(-2px);
+  transform: translateX(-3px);
 }
 
 /* ------------------------------------------------------------------ hero -- */
 
 .case-hero {
-  padding-top: clamp(7rem, 13vw, 9.5rem);
-  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  padding-top: calc(var(--header-h) + clamp(3.5rem, 9vw, 6rem));
+  padding-bottom: clamp(3rem, 6vw, 5rem);
 }
 
 .case-title {
-  max-width: 20ch;
-  font-size: clamp(2.5rem, 6vw, 4.4rem);
-  letter-spacing: -0.045em;
-  line-height: 1;
+  max-width: 12ch;
+  font-size: clamp(3.2rem, 10vw, 9rem);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.9;
+}
+
+.case-title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--accent-text);
 }
 
 .case-sub {
-  max-width: 48rem;
-  margin-top: 1.4rem;
+  max-width: 44rem;
+  margin-top: 1.8rem;
   color: var(--text-soft);
-  font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+  font-size: clamp(1.08rem, 1.7vw, 1.3rem);
+  line-height: 1.55;
+}
+
+.case-sub strong {
+  color: var(--text);
+  font-weight: 500;
 }
 
 .case-meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: 1.5rem;
-  margin-top: 2.6rem;
-  padding-top: 1.8rem;
-  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border-strong);
 }
 
 .case-meta dt {
   margin-bottom: 0.3rem;
   color: var(--text-dim);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .case-meta dd {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 500;
   line-height: 1.45;
 }
@@ -105,106 +120,135 @@
 .case-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
-  margin-top: 2.2rem;
+  gap: 0.6rem;
+  margin-top: 2.4rem;
+}
+
+.case-hero .mono {
+  color: var(--text-dim);
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 /* --------------------------------------------------------------- content -- */
 
 .case-section {
-  padding-block: clamp(3rem, 6vw, 4.5rem);
+  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+  border-top: 1px solid var(--border);
 }
 
 .case-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.35fr) minmax(0, 0.65fr);
-  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+  gap: clamp(2rem, 6vw, 5rem);
   align-items: start;
 }
 
 .case-layout > h2 {
   position: sticky;
-  top: 6.5rem;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  top: 7rem;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+}
+
+.case-section h2 {
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
 }
 
 .case-body {
   display: grid;
-  gap: 1.15rem;
+  gap: 1.2rem;
   color: var(--text-soft);
-  font-size: 1.04rem;
+  font-size: 1.08rem;
+  line-height: 1.7;
 }
 
 .case-body > [data-lang] {
   display: grid;
-  gap: 1.15rem;
+  gap: 1.2rem;
 }
 
 .case-body strong {
   color: var(--text);
-  font-weight: 600;
+  font-weight: 500;
+}
+
+.case-body code {
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--r-xs);
+  background: var(--bg-2);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
 }
 
 .case-body ul {
   display: grid;
-  gap: 0.7rem;
+  gap: 0;
   margin: 0.2rem 0 0;
   padding: 0;
   list-style: none;
+  counter-reset: item;
 }
 
 .case-body li {
   position: relative;
-  padding-left: 1.6rem;
+  padding: 1rem 0 1rem 3rem;
+  border-top: 1px solid var(--border);
+  counter-increment: item;
 }
 
 .case-body li::before {
   position: absolute;
-  top: 0.62em;
-  left: 0.2rem;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  content: "";
+  top: 1.15rem;
+  left: 0;
+  color: var(--accent-text);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  content: counter(item, decimal-leading-zero);
 }
 
 .callout {
-  padding: 1.3rem 1.5rem;
-  border-left: 2px solid var(--accent);
-  border-radius: var(--r-sm);
-  background: var(--grad-soft);
-  color: var(--text);
-  font-size: 0.98rem;
+  padding: 1.5rem 1.7rem;
+  border-radius: var(--r-md);
+  background: var(--invert-bg);
+  color: var(--invert-text);
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 
 .spec-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 0.8rem;
+  gap: 0.75rem;
   margin-top: 0.4rem;
 }
 
 .spec {
-  padding: 1.1rem 1.2rem;
+  padding: 1.3rem 1.4rem;
   border-radius: var(--r-md);
+  transition: border-color 300ms var(--ease), transform 600ms var(--ease-out);
+}
+
+.spec:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
 }
 
 .spec h3 {
-  margin-bottom: 0.3rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+  font-size: 1.05rem;
 }
 
 .spec p {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  line-height: 1.5;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 /* ----------------------------------------------------------------- chart -- */
 
 .chart-card {
-  padding: clamp(1.4rem, 3vw, 2.2rem);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
 }
 
 .chart-head {
@@ -217,7 +261,7 @@
 }
 
 .chart-head h3 {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 .chart-legend {
@@ -231,7 +275,7 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--text-soft);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
 }
 
 .legend-swatch {
@@ -241,29 +285,25 @@
   border-radius: 3px;
 }
 
-/* Okabe-Ito pairing: orange vs. sky blue stays distinguishable under every
-   common form of color vision deficiency, and each bar is labelled anyway. */
+/* Par Okabe-Ito: laranja e azul seguem distinguíveis em todas as formas comuns
+   de daltonismo, e cada barra é rotulada de qualquer forma. */
 .legend-before {
   background: var(--c-before);
 }
 
 .legend-after {
   background: var(--c-after);
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.55) 0 2px,
-    transparent 2px 5px
-  );
+  background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.55) 0 2px, transparent 2px 5px);
 }
 
 :root {
-  --c-before: #e69f00;
-  --c-after: #56b4e9;
-}
-
-:root[data-theme="light"] {
   --c-before: #b45309;
   --c-after: #0072b2;
+}
+
+:root[data-theme="dark"] {
+  --c-before: #e69f00;
+  --c-after: #56b4e9;
 }
 
 .chart-svg {
@@ -272,8 +312,32 @@
   overflow: visible;
 }
 
-/* The chart scales with its viewBox, so at phone widths the baked-in SVG font
-   sizes render around 7px. Scale them back up to stay readable. */
+.chart-svg text {
+  font-family: var(--font-mono);
+}
+
+.chart-svg .c-cat text {
+  font-family: var(--font-sans);
+}
+
+/* As barras crescem a partir da base quando o gráfico entra na tela. */
+.js .chart-card .chart-svg rect {
+  transform: scaleY(0);
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transition: transform 1200ms var(--ease-out);
+}
+
+.js .chart-card.is-visible .chart-svg rect {
+  transform: none;
+}
+
+.js .chart-card.is-visible .chart-svg rect:nth-child(2) { transition-delay: 120ms; }
+.js .chart-card.is-visible .chart-svg rect:nth-child(3) { transition-delay: 240ms; }
+.js .chart-card.is-visible .chart-svg rect:nth-child(4) { transition-delay: 360ms; }
+
+/* O gráfico escala pelo viewBox; no celular as fontes fixas do SVG ficariam
+   com uns 7px. Aqui elas voltam a um tamanho legível. */
 @media (max-width: 680px) {
   .chart-svg .c-value {
     font-size: 26px;
@@ -293,35 +357,34 @@
   padding-top: 1.2rem;
   border-top: 1px solid var(--border);
   color: var(--text-dim);
-  font-size: 0.84rem;
+  font-size: 0.86rem;
 }
 
 .delta-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 0.8rem;
+  gap: 0.75rem;
   margin-top: 1.4rem;
 }
 
 .delta {
   padding: 1.1rem 1.2rem;
-  border: 1px solid var(--border);
   border-radius: var(--r-md);
-  background: var(--surface-2);
+  background: var(--bg);
 }
 
 .delta b {
   display: block;
-  font-size: 1.6rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-size: 1.9rem;
+  font-weight: 400;
+  letter-spacing: -0.05em;
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
 }
 
 .delta span {
   color: var(--text-dim);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
 }
 
 /* ------------------------------------------------------------------- cta -- */
@@ -330,18 +393,43 @@
   display: grid;
   gap: 1.4rem;
   justify-items: center;
-  padding: clamp(2.2rem, 5vw, 3.6rem);
+  padding: clamp(2.6rem, 6vw, 4.5rem);
+  border: 0;
+  background: var(--invert-bg);
+  color: var(--invert-text);
   text-align: center;
 }
 
 .case-cta h2 {
-  max-width: 22ch;
-  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  max-width: 18ch;
+  font-size: clamp(2.2rem, 5vw, 4rem);
 }
 
 .case-cta p {
   max-width: 44ch;
-  color: var(--text-soft);
+  opacity: 0.75;
+}
+
+.case-cta .btn-primary {
+  background: var(--invert-text);
+  color: var(--invert-bg);
+}
+
+.case-cta .btn-primary:hover {
+  color: var(--on-accent);
+}
+
+.case-cta .btn-ghost {
+  border-color: color-mix(in srgb, var(--invert-text) 35%, transparent);
+  color: var(--invert-text);
+}
+
+.case-cta .btn-ghost:hover {
+  color: var(--on-accent);
+}
+
+.case-section:last-of-type {
+  border-top: 0;
 }
 
 @media (max-width: 860px) {
@@ -351,5 +439,11 @@
 
   .case-layout > h2 {
     position: static;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .chart-card .chart-svg rect {
+    transform: none;
   }
 }
