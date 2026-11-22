@@ -8,7 +8,7 @@
       name="description"
       content="Estudo de caso do Seslock Holmes: dashboard de investigação de e-mails do AWS SES que reduziu a taxa de bounce de 11,6% para 0,8% em um provedor."
     />
-    <meta name="theme-color" content="#05070d" />
+    <meta name="theme-color" content="#0c0c0b" />
     <link rel="canonical" href="https://rencaldas.github.io/seslock-holmes/" />
 
     <meta property="og:type" content="article" />
@@ -27,8 +27,7 @@
         root.classList.add("js");
         try {
           const savedTheme = localStorage.getItem("rencaldas-theme");
-          root.dataset.theme =
-            savedTheme || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+          root.dataset.theme = savedTheme || "dark"; // escuro é o padrão; o botão salva a escolha
           const savedLocale = localStorage.getItem("rencaldas-locale");
           const browserLocale = (navigator.language || "pt").toLowerCase().startsWith("pt") ? "pt" : "en";
           root.dataset.locale = savedLocale === "en" || savedLocale === "pt" ? savedLocale : browserLocale;
@@ -44,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../assets/css/styles.css" />
@@ -54,16 +53,6 @@
   <body>
     <a class="skip-link" href="#main" data-lang="pt">Ir para o conteúdo</a>
     <a class="skip-link" href="#main" data-lang="en">Skip to content</a>
-
-    <div class="backdrop" aria-hidden="true">
-      <div class="backdrop-aurora">
-        <span class="blob blob-a"></span>
-        <span class="blob blob-b"></span>
-        <span class="blob blob-c"></span>
-      </div>
-      <div class="backdrop-grid"></div>
-      <div class="backdrop-noise"></div>
-    </div>
 
     <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
       <defs>
@@ -86,7 +75,7 @@
       </defs>
     </svg>
 
-    <header class="header is-stuck" data-header>
+    <header class="header" data-header>
       <div class="header-inner">
         <a class="back-link" href="../">
           <svg aria-hidden="true"><use href="#i-arrow-left" /></svg>
@@ -117,7 +106,7 @@
             <span data-lang="en">Case study</span>
           </p>
 
-          <h1 class="case-title gradient-flow" data-reveal style="--delay: 60ms">Seslock Holmes</h1>
+          <h1 class="case-title" data-split>Seslock <em>Holmes</em></h1>
 
           <p class="case-sub" data-reveal style="--delay: 120ms">
             <span data-lang="pt">
@@ -354,7 +343,7 @@
                 <line x1="66" y1="20" x2="700" y2="20" stroke-dasharray="4 6" />
               </g>
 
-              <g class="c-axis" fill="var(--text-dim)" font-family="JetBrains Mono, monospace" font-size="13" text-anchor="end">
+              <g class="c-axis" fill="var(--text-dim)" font-family="Geist Mono, monospace" font-size="13" text-anchor="end">
                 <text x="54" y="265">0%</text>
                 <text x="54" y="205">3%</text>
                 <text x="54" y="145">6%</text>
@@ -369,14 +358,14 @@
                 <rect x="524" y="224" width="76" height="36" rx="6" fill="url(#after-hatch)" />
               </g>
 
-              <g class="c-value" fill="var(--text)" font-family="JetBrains Mono, monospace" font-size="15" font-weight="500" text-anchor="middle">
+              <g class="c-value" fill="var(--text)" font-family="Geist Mono, monospace" font-size="15" font-weight="500" text-anchor="middle">
                 <text x="168" y="18">11,6%</text>
                 <text x="262" y="234">0,8%</text>
                 <text x="468" y="114">6,8%</text>
                 <text x="562" y="214">1,8%</text>
               </g>
 
-              <g class="c-cat" fill="var(--text-soft)" font-family="Inter, sans-serif" font-size="15" text-anchor="middle">
+              <g class="c-cat" fill="var(--text-soft)" font-family="Geist, sans-serif" font-size="15" text-anchor="middle">
                 <text x="215" y="290" data-lang="pt">Um provedor</text>
                 <text x="215" y="290" data-lang="en">One provider</text>
                 <text x="515" y="290" data-lang="pt">Cenário geral</text>
