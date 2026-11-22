@@ -47,15 +47,19 @@ Este portfólio foi criado para:
 
 # ✨ Funcionalidades
 
-- Landing page com tema claro/escuro persistente, respeitando a preferência do sistema
+- Tema escuro como padrão, com alternância para o claro salva no navegador
 - Layout responsivo de 390px a telas largas
-- Animações de entrada por `IntersectionObserver` (sem dependência externa)
+- Design editorial (Geist + Instrument Serif) com o azul da logo como único acento e seções numeradas
+- Camada de movimento própria, sem dependência externa: intro com contador, títulos revelados palavra a palavra, parágrafo que acende com a rolagem, projetos em cartões empilhados, linha do tempo que se desenha e botões magnéticos
+- Transições entre páginas e troca de tema circular com a View Transitions API
+- Seção "Como eu trabalho" e projetos contados em Problema → Solução → Resultado
+- Todas as animações desligadas com `prefers-reduced-motion`
 - Capturas reais dos projetos apresentadas em moldura de navegador
 - Contador de estrelas dos repositórios, atualizado pela API do GitHub com os números do HTML como fallback
 - Estudo de caso dedicado do Seslock Holmes, bilíngue PT/EN
 - Gráfico de resultados acessível: paleta segura para daltonismo, hachura e rótulos numéricos
 - Formulário de contato com validação por campo, antispam (honeypot) e fallback para e-mail
-- Timeline profissional e grid bento de stack
+- Timeline profissional e stack agrupada pelo problema que resolve
 - Contraste WCAG AA em ambos os temas
 - SEO com dados estruturados (JSON-LD) e Open Graph com imagem própria
 - Zero dependência de runtime: sem framework, sem bundler, sem CDN de JS
